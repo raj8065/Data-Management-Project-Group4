@@ -65,33 +65,69 @@ public class PopulationMachine {
 
     private void initialize(){
         // The SQL query to create the customer table
-        String createCustomer = "create table student(\n" +
-                "CID numeric(5) not null,\n" +
-                "name varchar(20) not null,\n" +
-                "streetNum numeric(5),\n" +
-                "streetName varchar(20),\n" +
-                "city varchar(20),\n" +
-                "state varchar(20),\n" +
-                "zip numeric(5),\n" +
-                "gender char(1),\n" +
-                "annualIncome numeric(10,2),\n" +
-                "primary key (ID),\n";
+        String createCustomer =
+                "create table if not exists customer(" +
+                "CID numeric(5) not null," +
+                "name varchar(20) not null," +
+                "streetNum numeric(5)," +
+                "streetName varchar(20)," +
+                "city varchar(20)," +
+                "state varchar(20)," +
+                "zip numeric(5)," +
+                "gender char(1)," +
+                "annualIncome numeric(10,2)," +
+                "primary key (CID)";
         // The SQL query to create the vehicle table
-        String createVehicle = "create table student(\n" +
-                "CID numeric(5) not null,\n" +
-                "name varchar(20) not null,\n" +
-                "streetNum numeric(5),\n" +
-                "streetName varchar(20),\n" +
-                "city varchar(20),\n" +
-                "state varchar(20),\n" +
-                "zip numeric(5),\n" +
-                "gender char(1),\n" +
-                "annualIncome numeric(10,2),\n" +
-                "primary key (ID),\n";
+        String createVehicle =
+                "create table if not exists vehicle(" +
+                "VIN varchar(17) not null," +
+                "brand varchar(20)," +
+                "color varchar(20)," +
+                "transmission varchar(20)," +
+                "engine varchar(20)," +
+                "model varchar(20)," +
+                "bodyStyle varchar(20)," +
+                "primary key (VIN)";
+        // The SQL query to create the dealer table
+        String createDealer =
+                "create table if not exists dealer(" +
+                "DID numeric(5) not null," +
+                "name varchar(20) not null," +
+                "primary key (DID)";
+        // The SQL query to create the sale table
+        String createSale =
+                "create table if not exists sale(" +
+                "VIN varchar(17) not null," +
+                "DID numeric(5)," +
+                "CID numeric(5)," +
+                "transmission varchar(20)," +
+                "engine varchar(20)," +
+                "model varchar(20)," +
+                "bodyStyle varchar(20)," +
+                "primary key (VIN)";
+        // The SQL query to create the customerPhoneNumbers table
+        String createCustomerPhoneNumbers =
+                "create table if not exists customerPhoneNumbers(" +
+                "CID numeric(5) not null," +
+                "phoneNumber numeric(10)," +
+                "primary key (CID)";
+        String[] createQueryList = {createCustomer, createVehicle, createDealer, createSale, createCustomerPhoneNumbers};
+        sendQueries(createQueryList);
     }
 
-    private void sendQuery(){
+    private void sendQuery(String query){
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private void sendQueries(String[] queries){
+        for (String query : queries){
+            sendQuery(query);
+        }
     }
 
     public static void main(String args[]){
