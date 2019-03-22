@@ -2,6 +2,6 @@
 
 ## Members
 - Reese Jones
--
+- Cory DioGuardi
 -
 -
