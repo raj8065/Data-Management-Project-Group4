@@ -3,5 +3,5 @@
 ## Members
 - Reese Jones
 - Cory DioGuardi
--
+- Parker Johnson
 -
