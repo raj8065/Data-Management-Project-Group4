@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class User_Interface {
 
+    Enum UserType =
+
     public static void main(String[] args) {
         displayStartupMessage();
         Scanner scanner = new Scanner(System.in);
