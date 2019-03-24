@@ -42,7 +42,7 @@ public class User_Interface {
                 break;
         }
 
-        cc = new CommandConstructor("./Database/AutomobileDB.mv.db", username, password);
+        cc = new CommandConstructor("./Database/AutomobileDB", username, password);
 
         inUse = true;
         while(inUse) {

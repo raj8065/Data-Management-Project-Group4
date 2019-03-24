@@ -11,7 +11,7 @@ public class PopulationMachine {
 
     private static String USAGE = "java Util.PopulationMachine population_size";
 
-    private Connection conn;
+    private static Connection conn;
 
     /**
      * Create a database connection with the given params
@@ -19,7 +19,7 @@ public class PopulationMachine {
      * @param user: user name for the owner of the database
      * @param password: password of the database owner
      */
-    public void createConnection(String location,
+    public static void createConnection(String location,
                                  String user,
                                  String password){
         try {
@@ -133,7 +133,7 @@ public class PopulationMachine {
 
     public static void main(String args[]){
         PopulationMachine pm = new PopulationMachine(0);
-        String size = args[0];
+        /*String size = args[0];
         if (size.matches("\\d+")) {
             int num = Integer.parseInt(size);
             if (num < 0)
@@ -144,7 +144,8 @@ public class PopulationMachine {
             System.err.println(USAGE);
             System.err.println("population_size must be an integer");
             System.exit(1);
-        }
+        }*/
+        createConnection("./Database/AutomobileDB", "user", "pass");
         pm.initialize();
         pm.populate();
     }
