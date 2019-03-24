@@ -78,12 +78,9 @@ public class PopulationMachine {
         String createVehicle =
                 "create table if not exists vehicle(" +
                 "VIN varchar(17) not null," +
-                "brand varchar(20)," +
                 "color varchar(20)," +
                 "transmission varchar(20)," +
                 "engine varchar(20)," +
-                "model varchar(20)," +
-                "bodyStyle varchar(20)," +
                 "primary key (VIN))";
         // The SQL query to create the dealer table
         String createDealer =
