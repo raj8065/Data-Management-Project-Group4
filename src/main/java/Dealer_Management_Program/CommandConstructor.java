@@ -15,7 +15,19 @@ public class CommandConstructor {
     }
 
     public ResultSet getDBFullCommand(String SQLCommand){
-        ResultSet result = qb.sendQueryFullCommand(SQLCommand);
+
+        String commandType = SQLCommand.substring(0, SQLCommand.indexOf(' '));
+        ResultSet result = null;
+        switch (commandType.toLowerCase()){
+            case("delete"):
+                break;
+            case("insert"):
+                break;
+            case("select"):
+                result = qb.sendQueryFullCommand(SQLCommand);
+                break;
+        }
+
         if(result != null) {
             return result;
         }

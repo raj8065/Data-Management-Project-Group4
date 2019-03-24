@@ -44,7 +44,7 @@ public class PopulationMachine {
      * When your database program exits
      * you should close the connection
      */
-    public void closeConnection(){
+    public static void closeConnection(){
         try {
             conn.close();
         } catch (SQLException e) {
@@ -52,19 +52,15 @@ public class PopulationMachine {
         }
     }
 
-    private PopulationMachine(int populationSize){
-        size = populationSize;
-    }
-
-    private void populateCustomers(){
+    private static void populateCustomers(){
 
     }
 
-    private void populate(){
+    private static void populate(){
 
     }
 
-    private void initialize(){
+    private static void initialize(){
         // The SQL query to create the customer table
         String createCustomer =
                 "create table if not exists customer(" +
@@ -77,7 +73,7 @@ public class PopulationMachine {
                 "zip numeric(5)," +
                 "gender char(1)," +
                 "annualIncome numeric(10,2)," +
-                "primary key (CID)";
+                "primary key (CID))";
         // The SQL query to create the vehicle table
         String createVehicle =
                 "create table if not exists vehicle(" +
@@ -88,13 +84,13 @@ public class PopulationMachine {
                 "engine varchar(20)," +
                 "model varchar(20)," +
                 "bodyStyle varchar(20)," +
-                "primary key (VIN)";
+                "primary key (VIN))";
         // The SQL query to create the dealer table
         String createDealer =
                 "create table if not exists dealer(" +
                 "DID numeric(5) not null," +
                 "name varchar(20) not null," +
-                "primary key (DID)";
+                "primary key (DID))";
         // The SQL query to create the sale table
         String createSale =
                 "create table if not exists sale(" +
@@ -105,18 +101,18 @@ public class PopulationMachine {
                 "engine varchar(20)," +
                 "model varchar(20)," +
                 "bodyStyle varchar(20)," +
-                "primary key (VIN)";
+                "primary key (VIN))";
         // The SQL query to create the customerPhoneNumbers table
         String createCustomerPhoneNumbers =
                 "create table if not exists customerPhoneNumbers(" +
                 "CID numeric(5) not null," +
                 "phoneNumber numeric(10)," +
-                "primary key (CID)";
+                "primary key (CID))";
         String[] createQueryList = {createCustomer, createVehicle, createDealer, createSale, createCustomerPhoneNumbers};
         sendQueries(createQueryList);
     }
 
-    private void sendQuery(String query){
+    private static void sendQuery(String query){
         try {
             Statement stmt = conn.createStatement();
             stmt.execute(query);
@@ -125,14 +121,13 @@ public class PopulationMachine {
         }
     }
 
-    private void sendQueries(String[] queries){
+    private static void sendQueries(String[] queries){
         for (String query : queries){
             sendQuery(query);
         }
     }
 
     public static void main(String args[]){
-        PopulationMachine pm = new PopulationMachine(0);
         /*String size = args[0];
         if (size.matches("\\d+")) {
             int num = Integer.parseInt(size);
@@ -146,7 +141,7 @@ public class PopulationMachine {
             System.exit(1);
         }*/
         createConnection("./Database/AutomobileDB", "user", "pass");
-        pm.initialize();
-        pm.populate();
+        initialize();
+        populate();
     }
 }

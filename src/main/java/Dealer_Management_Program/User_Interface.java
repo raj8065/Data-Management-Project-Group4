@@ -37,15 +37,17 @@ public class User_Interface {
             case "system_admin":
                 userType = UserType.SYSTEM_ADMIN;
                 break;
+            case "user":
+                userType = UserType.SYSTEM_ADMIN;
+                break;
             default:
                 userType = UserType.UNKNOWN;
                 break;
         }
-
+        System.out.println(userType);
         cc = new CommandConstructor("./Database/AutomobileDB", username, password);
 
-        inUse = true;
-        while(inUse) {
+        inUse = true;        while(inUse) {
             processInput(scanner.nextLine());
         }
         System.out.println("Thank you for using the Dealership information system!");
