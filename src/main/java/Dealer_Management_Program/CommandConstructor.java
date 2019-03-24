@@ -18,10 +18,11 @@ public class CommandConstructor {
 
         String commandType = SQLCommand.substring(0, SQLCommand.indexOf(' '));
         ResultSet result = null;
-        switch (commandType.toLowerCase()){
+        switch (commandType.toLowerCase().trim()){
             case("delete"):
                 break;
             case("insert"):
+                qb.executeCommand(SQLCommand);
                 break;
             case("select"):
                 result = qb.sendQueryFullCommand(SQLCommand);

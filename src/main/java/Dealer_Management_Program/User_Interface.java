@@ -1,6 +1,7 @@
 package Dealer_Management_Program;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class User_Interface {
@@ -95,6 +96,15 @@ public class User_Interface {
 
     private static void displayResult(ResultSet result){
         System.out.println(result.toString());
+
+        while(result.next()){
+            System.out.printf("\tPerson %d: %s %s\n",
+                    results2.getInt(1),
+                    results2.getString(2),
+                    results2.getString(3));
+        }
+
+
     }
 
 }

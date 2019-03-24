@@ -22,6 +22,17 @@ public class QueryBuilder {
 		createConnection(location, user, password);
 	}
 
+	public boolean executeCommand(String command) {
+        Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+            return stmt.execute(command);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 	public ResultSet sendQuery(SQLCommand command) {
 		return sendQueryFullCommand(command.toString());
 	}
