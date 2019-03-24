@@ -1,3 +1,5 @@
+package Dealer_Management_Program;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -80,7 +82,7 @@ public class H2DemoMain {
 		try {
 			
 			/**
-			 * Creates a sample Person table 
+			 * Creates a sample Dealer_Management_Program.Person table
 			 * and populates it from a csv file
 			 */
 			PersonTable.createPersonTable(demo.getConnection());
@@ -113,7 +115,7 @@ public class H2DemoMain {
 			 * you want
 			 */
 			while(results.next()){
-				System.out.printf("\tPerson %d: %s %s %s\n", 
+				System.out.printf("\tDealer_Management_Program.Person %d: %s %s %s\n",
 						          results.getInt(1),
 						          results.getString(2),
 						          results.getString(4),
@@ -161,7 +163,7 @@ public class H2DemoMain {
                     columns,
                     whereClauses);
 			while(results2.next()){
-			System.out.printf("\tPerson %d: %s %s\n", 
+			System.out.printf("\tDealer_Management_Program.Person %d: %s %s\n",
 				          results2.getInt(1),
 				          results2.getString(2),
 				          results2.getString(3));

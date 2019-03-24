@@ -1,3 +1,5 @@
+package Dealer_Management_Program;
+
 /**
  * Hold data about a person
  * @author scj

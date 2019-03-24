@@ -1,5 +1,6 @@
+package Util;
+
 import java.sql.*;
-import java.util.ArrayList;
 
 /* Class used to populate the database
  *
@@ -8,7 +9,7 @@ public class PopulationMachine {
 
     private int size;
 
-    private static String USAGE = "java PopulationMachine population_size";
+    private static String USAGE = "java Util.PopulationMachine population_size";
 
     private Connection conn;
 
