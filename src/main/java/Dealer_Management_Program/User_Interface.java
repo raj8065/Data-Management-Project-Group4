@@ -86,7 +86,11 @@ public class User_Interface {
                 break;
             case("-c"):
                 if(userType == UserType.SYSTEM_ADMIN) {
-                    displayResult(cc.getDBFullCommand(in.substring(2).trim()));
+                    try {
+                        displayResult(cc.getDBFullCommand(in.substring(2).trim()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
             default:
@@ -94,14 +98,14 @@ public class User_Interface {
         }
     }
 
-    private static void displayResult(ResultSet result){
+    private static void displayResult(ResultSet result) throws SQLException {
         System.out.println(result.toString());
 
         while(result.next()){
-            System.out.printf("\tPerson %d: %s %s\n",
-                    results2.getInt(1),
-                    results2.getString(2),
-                    results2.getString(3));
+            System.out.printf("" +
+                    result.getInt(1)+ " " +
+                    result.getString(2)+ " " +
+                    result.getInt(3));
         }
 
 
