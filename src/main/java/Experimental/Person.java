@@ -1,4 +1,4 @@
-package Dealer_Management_Program;
+package Experimental;
 
 /**
  * Hold data about a person

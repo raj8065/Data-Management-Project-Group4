@@ -1,6 +1,6 @@
-package Dealer_Management_Program;
+package Util;
 
-import Dealer_Management_Program.Person;
+import Experimental.Person;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -126,7 +126,7 @@ public class PersonTable {
 	/**
 	 * This creates an sql statement to do a bulk add of people
 	 * 
-	 * @param people: list of Dealer_Management_Program.Person objects to add
+	 * @param people: list of Experimental.Person objects to add
 	 * 
 	 * @return
 	 */
@@ -252,7 +252,7 @@ public class PersonTable {
 			ResultSet result = stmt.executeQuery(query);
 			
 			while(result.next()){
-				System.out.printf("Dealer_Management_Program.Person %d: %s %s %s\n",
+				System.out.printf("Experimental.Person %d: %s %s %s\n",
 						          result.getInt(1),
 						          result.getString(2),
 						          result.getString(4),
