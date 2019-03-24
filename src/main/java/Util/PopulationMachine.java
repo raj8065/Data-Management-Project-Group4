@@ -62,7 +62,7 @@ public class PopulationMachine {
                 "create table if not exists customer(" +
                 "CID numeric(5) not null," +
                 "name varchar(20) not null," +
-                "streetNum numeric(5)," +
+                "streetNum varchar(5)," +
                 "streetName varchar(20)," +
                 "city varchar(20)," +
                 "state varchar(20)," +
@@ -91,8 +91,8 @@ public class PopulationMachine {
                 "DID numeric(5)," +
                 "CID numeric(5)," +
                 "transmission varchar(20)," +
-                "engine varchar(20)," +
-                "model varchar(20)," +
+                        "engine varchar(20)," +
+                        "model varchar(20)," +
                 "bodyStyle varchar(20)," +
                 "primary key (VIN))";
         // The SQL query to create the customerPhoneNumbers table

@@ -1,9 +1,6 @@
 package Dealer_Management_Program;
 
-import Util.PersonTable;
-
 import java.sql.*;
-import java.util.ArrayList;
 
 /**
  * This is a sample main program. 
