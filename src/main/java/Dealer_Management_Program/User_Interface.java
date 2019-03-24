@@ -16,21 +16,21 @@ public class User_Interface {
         }
     }
 
-    public static void displayStartupMessage() {
+    private static void displayStartupMessage() {
         System.out.println("Welcome to the WIP Dealership information management system.");
         System.out.println("+----------------------------------------------------------+");
         System.out.println("| To get help or information type -h                       |");
         System.out.println("+----------------------------------------------------------+");
     }
 
-    public static void displayHelp() {
+    private static void displayHelp() {
         System.out.println("Commands");
         System.out.println("------------------------------------------------------------");
         System.out.println("-h                                #Displays the help message");
         System.out.println("------------------------------------------------------------");
     }
 
-    public static void processInput(String in) {
+    private static void processInput(String in) {
         switch(in.trim()) {
             case("-h"):
                 displayHelp();
