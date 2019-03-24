@@ -33,6 +33,10 @@ public class QueryBuilder {
         return false;
     }
 
+    public boolean executeCommand(SQLCommand command) {
+        return executeCommand(command.toString());
+    }
+
 	public ResultSet sendQuery(SQLCommand command) {
 		return sendQueryFullCommand(command.toString());
 	}

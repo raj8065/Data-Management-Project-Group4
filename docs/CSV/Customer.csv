@@ -1,0 +1,11 @@
+CID numeric(5) not null,name varchar(20) not null,streetNum varchar(20),streetName varchar(20),city varchar(20),state varchar(20),zip numeric(5),gender char(1),"annualIncome numeric(10,2)"
+11,Nithya Eleonora,2,Green Hill Drive,Grovetown,GA ,30813,M,88466
+12,Alaric Ophelia,3,Sheffield St.,Paducah,KY ,42001,M,90418
+13,Christy Vivian,4,4th Circle,Orland Park,IL ,60462,F,97770
+14,Odeserundiye Thi,5,E. Winchester St.,Chillicothe,OH ,45601,M,87499
+15,Joeri Lisa,6,Front Street,Saratoga Springs,NY ,12866,F,118883
+16,Kumiko Merit,7,Atlantic Dr.,Marietta,GA ,30008,F,107215
+17,Bazyli Koloman,8,Delaware Lane,Chardon,OH ,44024,M,64125
+18,Antonia Pradeep,9,Cedar Swamp St.,Mchenry,IL,60050,F,70048
+19,Antipatros Kevin,10,Mayflower St.,Paramus,NJ ,07652,M,87925
+20,Golda Stone,11,North Ramblewood St.,Saint Johns,FL ,32259,F,65530

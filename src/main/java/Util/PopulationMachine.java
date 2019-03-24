@@ -1,6 +1,10 @@
 package Util;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 /* Class used to populate the database
  *
@@ -52,14 +56,6 @@ public class PopulationMachine {
         }
     }
 
-    private static void populateCustomers(){
-
-    }
-
-    private static void populate(){
-
-    }
-
     private static void initialize(){
         // The SQL query to create the customer table
         String createCustomer =
@@ -105,40 +101,82 @@ public class PopulationMachine {
                 "CID numeric(5) not null," +
                 "phoneNumber numeric(10)," +
                 "primary key (CID))";
-        String[] createQueryList = {createCustomer, createVehicle, createDealer, createSale, createCustomerPhoneNumbers};
-        sendQueries(createQueryList);
+        String[] createCommandList = {createCustomer, createVehicle, createDealer, createSale, createCustomerPhoneNumbers};
+        sendCommands(createCommandList);
     }
 
-    private static void sendQuery(String query){
+    private static void populate(String table, String csv) {
+
+        try {   //Get Metadata for column types
+            ResultSetMetaData metaData = sendQuery("SELECT * FROM " + table + " FETCH first row only;").getMetaData();
+
+            BufferedReader br = new BufferedReader(new FileReader( "./docs/CSV/" + csv));
+            br.readLine(); // Skips column headers
+
+            String line;
+            while((line = br.readLine()) != null){
+                String[] split = line.split(",");
+                populateLine(table, metaData, split);
+            }
+
+            br.close();
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void populateLine(String table, ResultSetMetaData meta, String[] parts) throws SQLException {
+        StringBuilder sb = new StringBuilder();
+        sb.append("INSERT INTO " + table + " VALUES (");
+
+        //Determines Type and appends part
+        for(int i  = 0; i < parts.length; i++) {
+            switch (meta.getColumnType(i+1)) {
+                case (Types.VARCHAR):
+                case (Types.CHAR):
+                    sb.append("'" + parts[i] + "'");
+                    break;
+                case (Types.NUMERIC):
+                case (Types.OTHER):
+                    sb.append(parts[i]);
+            }
+            if(i< parts.length-1)
+                sb.append(',');
+        }
+
+        sb.append(");");
+        sendCommand(sb.toString());
+    }
+
+    private static ResultSet sendQuery(String query) {
         try {
             Statement stmt = conn.createStatement();
-            stmt.execute(query);
+            return stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static void sendCommand(String command){
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute(command);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private static void sendQueries(String[] queries){
+    private static void sendCommands(String[] queries){
         for (String query : queries){
-            sendQuery(query);
+            sendCommand(query);
         }
     }
 
     public static void main(String args[]){
-        /*String size = args[0];
-        if (size.matches("\\d+")) {
-            int num = Integer.parseInt(size);
-            if (num < 0)
-                num *= -1;
-            pm = new PopulationMachine(num);
-        }
-        else {
-            System.err.println(USAGE);
-            System.err.println("population_size must be an integer");
-            System.exit(1);
-        }*/
+        System.out.println(System.getProperty("user.dir"));
         createConnection("./Database/AutomobileDB", "user", "pass");
         initialize();
-        populate();
+        populate("customer", "Customer.csv");
     }
 }
