@@ -1,5 +1,6 @@
 package Dealer_Management_Program;
 
+import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class User_Interface {
@@ -15,12 +16,16 @@ public class User_Interface {
 
     private static boolean inUse;
 
+    private static CommandConstructor cc;
+
     public static void main(String[] args) {
         displayStartupMessage();
         Scanner scanner = new Scanner(System.in);
 
 
         String username = scanner.nextLine();
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
 
         switch(username.toLowerCase()){
             case "customer":
@@ -36,6 +41,8 @@ public class User_Interface {
                 userType = UserType.UNKNOWN;
                 break;
         }
+
+        cc = new CommandConstructor("./Database/AutomobileDB.mv.db", username, password);
 
         inUse = true;
         while(inUse) {
@@ -76,12 +83,16 @@ public class User_Interface {
                 break;
             case("-c"):
                 if(userType == UserType.SYSTEM_ADMIN) {
-                    System.out.println(in.substring(2).trim());
+                    displayResult(cc.getDBFullCommand(in.substring(2).trim()));
                     break;
                 }
             default:
                 System.out.println("Unknown input, use -h for help and information.");
         }
+    }
+
+    private static void displayResult(ResultSet result){
+        System.out.println(result.toString());
     }
 
 }

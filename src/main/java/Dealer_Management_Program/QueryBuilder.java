@@ -68,11 +68,11 @@ public class QueryBuilder {
 	 * When your database program exits 
 	 * you should close the connection
 	 */
-	public void closeConnection(){
+	public void closeConnection() {
 		try {
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+	}
 }
