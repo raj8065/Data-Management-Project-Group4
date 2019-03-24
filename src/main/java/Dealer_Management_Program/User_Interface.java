@@ -57,17 +57,28 @@ public class User_Interface {
         System.out.println("------------------------------------------------------------");
         System.out.println("-h                                #Displays the help message");
         System.out.println("-q                                #Quits the program");
+        if(userType == UserType.SYSTEM_ADMIN){
+            System.out.println("-c                                #Allows direct SQL Query");
+        }
         System.out.println("------------------------------------------------------------");
     }
 
     private static void processInput(String in) {
-        switch(in.trim()) {
+        in = in.trim();
+        String flag = in.substring(0, 2);
+
+        switch(flag) {
             case("-h"):
                 displayHelp();
                 break;
             case("-q"):
                 inUse = false;
                 break;
+            case("-c"):
+                if(userType == UserType.SYSTEM_ADMIN) {
+                    System.out.println(in.substring(2).trim());
+                    break;
+                }
             default:
                 System.out.println("Unknown input, use -h for help and information.");
         }
