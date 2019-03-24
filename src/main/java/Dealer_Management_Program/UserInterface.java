@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class User_Interface {
+public class UserInterface {
 
     enum UserType {
         UNKNOWN,
