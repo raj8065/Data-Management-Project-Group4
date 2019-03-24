@@ -8,10 +8,12 @@ public class User_Interface {
         UNKNOWN,
         CUSTOMER,
         DEALERSHIP_MANAGER,
-        SYSTEM_ADMIN;
+        SYSTEM_ADMIN
     }
 
     static Enum userType = UserType.UNKNOWN;
+
+    private static boolean inUse;
 
     public static void main(String[] args) {
         displayStartupMessage();
@@ -35,9 +37,11 @@ public class User_Interface {
                 break;
         }
 
-        while(true) {
+        inUse = true;
+        while(inUse) {
             processInput(scanner.nextLine());
         }
+        System.out.println("Thank you for using the Dealership information system!");
     }
 
     private static void displayStartupMessage() {
@@ -52,6 +56,7 @@ public class User_Interface {
         System.out.println("Commands");
         System.out.println("------------------------------------------------------------");
         System.out.println("-h                                #Displays the help message");
+        System.out.println("-q                                #Quits the program");
         System.out.println("------------------------------------------------------------");
     }
 
@@ -59,6 +64,9 @@ public class User_Interface {
         switch(in.trim()) {
             case("-h"):
                 displayHelp();
+                break;
+            case("-q"):
+                inUse = false;
                 break;
             default:
                 System.out.println("Unknown input, use -h for help and information.");
