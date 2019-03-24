@@ -136,8 +136,7 @@ public class PopulationMachine {
                 case (Types.CHAR):
                     sb.append("'" + parts[i] + "'");
                     break;
-                case (Types.NUMERIC):
-                case (Types.OTHER):
+                default:
                     sb.append(parts[i]);
             }
             if(i< parts.length-1)
