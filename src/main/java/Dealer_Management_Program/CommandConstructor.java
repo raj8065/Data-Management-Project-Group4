@@ -22,19 +22,18 @@ public class CommandConstructor {
             case("delete"):
                 break;
             case("insert"):
-                qb.executeCommand(SQLCommand);
+                if(qb.executeCommand(SQLCommand)){
+                    System.out.println("Insertion successful.");
+                }
+                else {
+                    System.out.println("Insertion failed.");
+                }
                 break;
             case("select"):
                 result = qb.sendQueryFullCommand(SQLCommand);
                 break;
         }
 
-        if(result != null) {
-            return result;
-        }
-        else{
-            System.out.println("There was an error.");
-            return null;
-        }
+        return result;
     }
 }
