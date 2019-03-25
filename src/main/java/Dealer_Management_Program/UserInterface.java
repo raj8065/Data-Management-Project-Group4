@@ -100,22 +100,21 @@ public class UserInterface {
 
     private static void displayResult(ResultSet result) throws SQLException {
 
-        if(result) {
-            int amnt = result.getMetaData().getColumnCount();
 
+        int amnt = result.getMetaData().getColumnCount();
+
+        for (int i = 0; i < amnt; i++)
+            System.out.print(result.getMetaData().getColumnName(i + 1) + " ");
+        System.out.println();
+        System.out.println("-----------------------------------------------------");
+
+        while (result.next()) {
             for (int i = 0; i < amnt; i++)
-                System.out.print(result.getMetaData().getColumnName(i + 1) + " ");
+                System.out.print(result.getObject(i + 1).toString() + " ");
+
             System.out.println();
-            System.out.println("-----------------------------------------------------");
+        }
 
-            while (result.next()) {
-                for (int i = 0; i < amnt; i++)
-                    System.out.print(result.getObject(i + 1).toString() + " ");
-
-                System.out.println();
-            }
-        } else
-            System.out.println("Command executed successfully.");
 
     }
 
