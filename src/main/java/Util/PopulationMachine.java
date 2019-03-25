@@ -5,14 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 
-/* Class used to populate the database
- *
+/*
+ * Class used to populate the database
  */
 public class PopulationMachine {
-
-    private int size;
-
-    private static String USAGE = "java Util.PopulationMachine population_size";
 
     private static Connection conn;
 
@@ -44,8 +40,7 @@ public class PopulationMachine {
     }
 
     /**
-     * When your database program exits
-     * you should close the connection
+     * Closes the connection to the database
      */
     public static void closeConnection(){
         try {
@@ -55,6 +50,9 @@ public class PopulationMachine {
         }
     }
 
+    /**
+     * Creates the database tables for the Car Dealership application using SQL commands
+     */
     private static void initialize(){
         // The SQL query to create the customer table
         String createCustomer =
@@ -100,55 +98,72 @@ public class PopulationMachine {
             "CID numeric(5) not null," +
             "phoneNumber numeric(10)," +
             "primary key (CID,phoneNumber))";
+        // The SQL query to create the brandModels table
         String createBrandModels =
             "create table if not exists brandModels(" +
             "BrandName varchar(20) not null," +
             "ModelName varchar(20) not null," +
             "primary key (BrandName,ModelName))";
+        // The SQL query to create the customerOwns table
         String createCustomerOwns =
             "create table if not exists customerOwns(" +
             "CID numeric(5) not null," +
             "VIN varchar(17) not null," +
             "primary key (CID,VIN))";
+        // The SQL query to create the dealerCanSell table
         String createDealerCanSell =
             "create table if not exists dealerCanSell(" +
             "DID numeric(5) not null," +
             "BrandName varchar(20) not null," +
             "primary key (DID,BrandName))";
+        // The SQL query to create the dealerOwns table
         String createDealerOwns =
             "create table if not exists dealerOwns(" +
             "DID numeric(5) not null," +
             "VIN varchar(17) not null," +
             "primary key (DID,VIN))";
+        // The SQL query to create the modelBodyStyle table
         String createModelBodyStyle =
             "create table if not exists modelBodyStyle(" +
             "ModelName varchar(20) not null," +
             "BodyStyle varchar(20) not null," +
             "primary key (ModelName, BodyStyle))";
+        // The SQL query to create the vehicleBodyStyle table
         String createVehicleBodyStyle =
             "create table if not exists vehicleBodyStyle(" +
             "VIN varchar(17) not null," +
             "BodyStyle varchar(20) not null," +
             "primary key (VIN))";
+        // The SQL query to create the vehicleModel table
         String createVehicleModel =
             "create table if not exists vehicleModel(" +
             "VIN varchar(17) not null," +
             "ModelName varchar(20) not null," +
             "primary key (VIN))";
+
         String[] createCommandList = {createCustomer, createVehicle, createDealer, createSale, createCustomerPhoneNumbers,
             createBrandModels, createCustomerOwns, createDealerCanSell, createDealerOwns, createModelBodyStyle,
             createVehicleBodyStyle, createVehicleModel};
         sendCommands(createCommandList);
     }
 
+    /**
+     * Takes in the name of a table within the database and the name of a csv file and populates the table with the
+     * information from the csv
+     * @param table The name of the table to populate
+     * @param csv   The name of the csv file to get the data from
+     */
     private static void populate(String table, String csv) {
 
-        try {   //Get Metadata for column types
+        try {
+            // Get Metadata for column types
             ResultSetMetaData metaData = sendQuery("SELECT * FROM " + table + " FETCH first row only;").getMetaData();
 
+            // Set up the reader
             BufferedReader br = new BufferedReader(new FileReader( "./docs/CSV/" + csv));
             br.readLine(); // Skips column headers
 
+            // Read CSV line by line and add it to the table
             String line;
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
@@ -161,20 +176,31 @@ public class PopulationMachine {
         }
     }
 
+    /**
+     * Processes a line from a CSV file and puts it into the indicated table
+     * @param table The name of the table to insert the information into
+     * @param meta  Metadata of the table, used for the column types
+     * @param parts The CSV line split at the commas
+     * @throws SQLException
+     */
     private static void populateLine(String table, ResultSetMetaData meta, String[] parts) throws SQLException {
         StringBuilder sb = new StringBuilder();
         sb.append("INSERT INTO " + table + " VALUES (");
 
-        //Determines Type and appends part
+        //Determines type of the column and formats the CSV part the appends it to the SQL string
         for(int i  = 0; i < parts.length; i++) {
             switch (meta.getColumnType(i+1)) {
                 case (Types.VARCHAR):
                 case (Types.CHAR):
-                    sb.append("'" + parts[i].replaceAll("'","''") + "'");
+                    sb.append("'");
+                    sb.append(parts[i].replaceAll("'","''")); // Casting in case there is an apostrophe
+                    sb.append("'");
                     break;
                 default:
                     sb.append(parts[i]);
             }
+
+            // splits the value arguments
             if(i< parts.length-1)
                 sb.append(',');
         }
@@ -183,6 +209,11 @@ public class PopulationMachine {
         sendCommand(sb.toString());
     }
 
+    /**
+     * Sends an SQL query to the database
+     * @param query The SQL code to send to the database
+     * @return      The output of the query, may be null
+     */
     private static ResultSet sendQuery(String query) {
         try {
             Statement stmt = conn.createStatement();
@@ -193,6 +224,10 @@ public class PopulationMachine {
         return null;
     }
 
+    /**
+     * Sends an SQL command to the database
+     * @param command   The SQL command to send
+     */
     private static void sendCommand(String command){
         try {
             Statement stmt = conn.createStatement();
@@ -202,16 +237,21 @@ public class PopulationMachine {
         }
     }
 
+    /**
+     * Sends multiple SQL commands to the database
+     * @param queries   An array of SQL commands to send
+     */
     private static void sendCommands(String[] queries){
         for (String query : queries){
             sendCommand(query);
         }
     }
 
-    public static void main(String args[]){
-        System.out.println(System.getProperty("user.dir"));
+    public static void main(String args[]) {
         createConnection("./Database/AutomobileDB", "user", "pass");
+
         initialize();
+
         populate("brandModels", "BrandModels.csv");
         populate("customer", "Customer.csv");
         populate("customerOwns", "CustomerOwns.csv");
@@ -224,5 +264,7 @@ public class PopulationMachine {
         populate("vehicle", "Vehicle.csv");
         populate("vehicleBodyStyle", "VehicleBodyStyle.csv");
         populate("vehicleModel", "VehicleModel.csv");
+
+        closeConnection();
     }
 }
