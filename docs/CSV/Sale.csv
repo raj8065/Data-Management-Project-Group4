@@ -1,0 +1,11 @@
+VIN varchar(17) not null,CID numeric(5) not null,DID numeric(5) not null,cost numeric(8),Day numeric(2) not null,Month numeric(2) not null,Year numeric(4) not null
+0,4,0,20100,10,8,2005
+1,5,1,20200,7,1,2000
+2,6,2,20300,3,4,1992
+3,7,3,20400,6,6,1998
+4,8,4,20500,5,8,1994
+5,9,5,20600,9,10,2004
+6,10,6,20700,25,11,1997
+7,1,7,20800,1,5,2002
+8,4,8,20900,30,6,1993
+9,6,9,21000,14,1,2010

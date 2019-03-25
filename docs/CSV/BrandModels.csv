@@ -1,0 +1,13 @@
+BrandName varchar(20) not null,ModelName varchar(20) not null
+Chevrolet,Suburban
+Chevrolet,Silverado
+Chevrolet,Impala
+Buick,Enclave
+Buick,Lacrosse
+GMC,Canyon
+GMC,Sierra
+GMC,Acadia
+Cadillac,CTS
+Cadillac,ATS
+Cadillac,CT6
+Cadillac,CTS-V

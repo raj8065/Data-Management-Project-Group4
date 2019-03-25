@@ -1,0 +1,16 @@
+DID numeric(5) not null,BrandName varchar(20) not null
+0,Chevrolet
+1,Buick
+2,Chevrolet
+3,Chevrolet
+4,Cadillac
+4,GMC
+4,Buick
+5,GMC
+6,Buick
+7,Chevrolet
+7,GMC
+8,Buick
+9,Cadillac
+9,GMC
+10,Cadillac

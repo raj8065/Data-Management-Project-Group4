@@ -1,0 +1,17 @@
+VIN varchar(17) not null,BodyStyle varchar(20) not null
+0,SUV
+1,Sedan
+2,Sedan
+3,Pickup
+4,SUV
+5,SUV
+6,Sedan
+7,Sedan
+8,Pickup
+9,Pickup
+10,Pickup
+11,SUV
+12,Sedan
+13,Coupe
+14,Sedan
+15,Sedan

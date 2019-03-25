@@ -1,0 +1,17 @@
+VIN varchar(17) not null,color varchar(20),transmission varchar(20),engine varchar(20)
+0,Red,Automatic,V8
+1,Red,Automatic,V6
+2,Green,Manual,V6
+3,Blue,Automatic,V8
+4,Gray,Automatic,V6
+5,Gray,Automatic,V6
+6,White,Automatic,I4
+7,Red,Automatic,I4
+8,Gray,Automatic,I4
+9,Black,Automatic,I4 Diesel
+10,Gray,Automatic,V8
+11,White,Automatic,V6
+12,Red,Automatic,I4
+13,Blue,Automatic,V6
+14,Gray,Automatic,V8
+15,Black,Automatic,V6

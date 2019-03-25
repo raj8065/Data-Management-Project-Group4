@@ -1,0 +1,14 @@
+ModelName varchar(20) not null,BodyStyle varchar(20) not null
+Suburban,SUV
+Silverado,Pickup
+Impala,Sedan
+Enclave,SUV
+Lacrosse,Sedan
+Canyon,Pickup
+Sierra,Pickup
+Acadia,SUV
+CTS,Sedan
+ATS,Sedan
+ATS,Coupe
+CT6,Sedan
+CTS-V,Sedan

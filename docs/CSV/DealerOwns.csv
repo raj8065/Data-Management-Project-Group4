@@ -1,0 +1,6 @@
+DID numeric(5) not null,VIN varchar(17) not null
+4,15
+4,13
+5,11
+7,10
+10,14

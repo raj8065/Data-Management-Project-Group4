@@ -1,0 +1,17 @@
+VIN varchar(17) not null,ModelName varchar(20) not null
+0,Suburban
+1,Impala
+2,Impala
+3,SIlverado
+4,Enclave
+5,Enclave
+6,Lacrosse
+7,Lacrosse
+8,Canyon
+9,Canyon
+10,Sierra
+11,Acadia
+12,CTS
+13,ATS
+14,CTS-V
+15,CT6

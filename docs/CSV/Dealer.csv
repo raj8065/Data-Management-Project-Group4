@@ -1,0 +1,12 @@
+DID numeric(5) not null,name varchar(20) not null
+0,Joe's Cars
+1,Bob's Cars
+2,Joey's Garage
+3,Jonny Cherovlet
+4,Cory D's Car Shop
+5,Louden's Cars
+6,Parker's Car Place
+7,Reese's Cars
+8,Bobby Buick
+9,Gary GMC
+10,Charlie's Cadillacs
