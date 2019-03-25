@@ -25,7 +25,7 @@ public class UserInterface {
 
 
         String username = scanner.nextLine();
-        System.out.print("Password: ");
+        System.out.println("Password: ");
         String password = scanner.nextLine();
 
         switch(username.toLowerCase()){
@@ -99,13 +99,14 @@ public class UserInterface {
     }
 
     private static void displayResult(ResultSet result) throws SQLException {
-        System.out.println(result.toString());
+
+        int amnt = result.getMetaData().getColumnCount();
 
         while(result.next()){
-            System.out.printf("" +
-                    result.getInt(1)+ " " +
-                    result.getString(2)+ " " +
-                    result.getInt(3));
+            for(int i = 0; i < amnt; i++)
+                System.out.print(result.getObject(i+1).toString() + " ");
+
+            System.out.println();
         }
 
 
