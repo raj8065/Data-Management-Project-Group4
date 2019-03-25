@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
 
 /* Class used to populate the database
  *
@@ -59,49 +58,86 @@ public class PopulationMachine {
     private static void initialize(){
         // The SQL query to create the customer table
         String createCustomer =
-                "create table if not exists customer(" +
-                "CID numeric(5) not null," +
-                "name varchar(20) not null," +
-                "streetNum varchar(5)," +
-                "streetName varchar(20)," +
-                "city varchar(20)," +
-                "state varchar(20)," +
-                "zip numeric(5)," +
-                "gender char(1)," +
-                "annualIncome numeric(10,2)," +
-                "primary key (CID))";
+            "create table if not exists customer(" +
+            "CID numeric(5) not null," +
+            "name varchar(20) not null," +
+            "streetNum varchar(5)," +
+            "streetName varchar(20)," +
+            "city varchar(20)," +
+            "state varchar(20)," +
+            "zip numeric(5)," +
+            "gender char(1)," +
+            "annualIncome numeric(10,2)," +
+            "primary key (CID))";
         // The SQL query to create the vehicle table
         String createVehicle =
-                "create table if not exists vehicle(" +
-                "VIN varchar(17) not null," +
-                "color varchar(20)," +
-                "transmission varchar(20)," +
-                "engine varchar(20)," +
-                "primary key (VIN))";
+            "create table if not exists vehicle(" +
+            "VIN varchar(17) not null," +
+            "color varchar(20)," +
+            "transmission varchar(20)," +
+            "engine varchar(20)," +
+            "primary key (VIN))";
         // The SQL query to create the dealer table
         String createDealer =
-                "create table if not exists dealer(" +
-                "DID numeric(5) not null," +
-                "name varchar(20) not null," +
-                "primary key (DID))";
+            "create table if not exists dealer(" +
+            "DID numeric(5) not null," +
+            "name varchar(20) not null," +
+            "primary key (DID))";
         // The SQL query to create the sale table
         String createSale =
-                "create table if not exists sale(" +
-                "VIN varchar(17) not null," +
-                "DID numeric(5)," +
-                "CID numeric(5)," +
-                "transmission varchar(20)," +
-                        "engine varchar(20)," +
-                        "model varchar(20)," +
-                "bodyStyle varchar(20)," +
-                "primary key (VIN))";
+            "create table if not exists sale(" +
+            "VIN varchar(17) not null," +
+            "CID numeric(5) not null," +
+            "DID numeric(5) not null," +
+            "cost numeric(8)," +
+            "Day numeric(2) not null," +
+            "Month numeric(2) not null," +
+            "Year numeric(4) not null," +
+            "primary key (VIN))";
         // The SQL query to create the customerPhoneNumbers table
         String createCustomerPhoneNumbers =
-                "create table if not exists customerPhoneNumbers(" +
-                "CID numeric(5) not null," +
-                "phoneNumber numeric(10)," +
-                "primary key (CID))";
-        String[] createCommandList = {createCustomer, createVehicle, createDealer, createSale, createCustomerPhoneNumbers};
+            "create table if not exists customerPhoneNumbers(" +
+            "CID numeric(5) not null," +
+            "phoneNumber numeric(10)," +
+            "primary key (CID,phoneNumber))";
+        String createBrandModels =
+            "create table if not exists brandModels(" +
+            "BrandName varchar(20) not null," +
+            "ModelName varchar(20) not null," +
+            "primary key (BrandName,ModelName))";
+        String createCustomerOwns =
+            "create table if not exists customerOwns(" +
+            "CID numeric(5) not null," +
+            "VIN varchar(17) not null," +
+            "primary key (CID,VIN))";
+        String createDealerCanSell =
+            "create table if not exists dealerCanSell(" +
+            "DID numeric(5) not null," +
+            "BrandName varchar(20) not null," +
+            "primary key (DID,BrandName))";
+        String createDealerOwns =
+            "create table if not exists dealerOwns(" +
+            "DID numeric(5) not null," +
+            "VIN varchar(17) not null," +
+            "primary key (DID,VIN))";
+        String createModelBodyStyle =
+            "create table if not exists modelBodyStyle(" +
+            "ModelName varchar(20) not null," +
+            "BodyStyle varchar(20) not null," +
+            "primary key (ModelName, BodyStyle))";
+        String createVehicleBodyStyle =
+            "create table if not exists vehicleBodyStyle(" +
+            "VIN varchar(17) not null," +
+            "BodyStyle varchar(20) not null," +
+            "primary key (VIN))";
+        String createVehicleModel =
+            "create table if not exists vehicleModel(" +
+            "VIN varchar(17) not null," +
+            "ModelName varchar(20) not null," +
+            "primary key (VIN))";
+        String[] createCommandList = {createCustomer, createVehicle, createDealer, createSale, createCustomerPhoneNumbers,
+            createBrandModels, createCustomerOwns, createDealerCanSell, createDealerOwns, createModelBodyStyle,
+            createVehicleBodyStyle, createVehicleModel};
         sendCommands(createCommandList);
     }
 
@@ -134,7 +170,7 @@ public class PopulationMachine {
             switch (meta.getColumnType(i+1)) {
                 case (Types.VARCHAR):
                 case (Types.CHAR):
-                    sb.append("'" + parts[i] + "'");
+                    sb.append("'" + parts[i].replaceAll("'","''") + "'");
                     break;
                 default:
                     sb.append(parts[i]);
@@ -176,6 +212,17 @@ public class PopulationMachine {
         System.out.println(System.getProperty("user.dir"));
         createConnection("./Database/AutomobileDB", "user", "pass");
         initialize();
+        populate("brandModels", "BrandModels.csv");
         populate("customer", "Customer.csv");
+        populate("customerOwns", "CustomerOwns.csv");
+        populate("customerPhoneNumbers", "CustomerPhoneNumbers.csv");
+        populate("dealer", "Dealer.csv");
+        populate("dealerCanSell", "DealerCanSell.csv");
+        populate("dealerOwns", "DealerOwns.csv");
+        populate("modelBodyStyle", "ModelBodyStyles.csv");
+        populate("sale", "Sale.csv");
+        populate("vehicle", "Vehicle.csv");
+        populate("vehicleBodyStyle", "VehicleBodyStyle.csv");
+        populate("vehicleModel", "VehicleModel.csv");
     }
 }
