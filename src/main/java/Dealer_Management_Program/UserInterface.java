@@ -100,6 +100,9 @@ public class UserInterface {
 
     private static void displayResult(ResultSet result) throws SQLException {
 
+        if(result == null){
+            return;
+        }
 
         int amnt = result.getMetaData().getColumnCount();
 
