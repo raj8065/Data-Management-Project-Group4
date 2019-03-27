@@ -10,8 +10,5 @@
         <module name="DataManagementProjectGroup4" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Data-Management-Project-Group4" target="7" />
-    </bytecodeTargetLevel>
   </component>
 </project>
