@@ -209,6 +209,17 @@ public class PopulationMachine {
         sendCommand(sb.toString());
     }
 
+    private static void createRole(String roleName, String rolePermissions, String tables) {
+        sendCommand("CREATE ROLE " + roleName);
+
+        String basis = "GRANT " + rolePermissions;
+        if(tables != null)
+            basis += " ON " + tables;
+        basis += " TO " + roleName;
+
+        sendCommand(basis);
+    }
+
     /**
      * Sends an SQL query to the database
      * @param query The SQL code to send to the database
@@ -264,6 +275,10 @@ public class PopulationMachine {
         populate("vehicle", "Vehicle.csv");
         populate("vehicleBodyStyle", "VehicleBodyStyle.csv");
         populate("vehicleModel", "VehicleModel.csv");
+
+        //createRole("CUSTOMER", "EXECUTE" , "customer,customerOwns,sale,vehicle,vehicleBodyStyle,vehicleModel");
+        createRole("MANAGER", "EXECUTE" , null);
+        createRole("SYSTEM_ADMIN", "DBA", null);
 
         closeConnection();
     }

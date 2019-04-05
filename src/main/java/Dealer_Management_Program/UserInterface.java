@@ -48,9 +48,10 @@ public class UserInterface {
         System.out.println(userType);
         cc = new CommandConstructor("./Database/AutomobileDB", username, password);
 
-        inUse = true;        while(inUse) {
+        inUse = true;
+        while(inUse)
             processInput(scanner.nextLine());
-        }
+
         System.out.println("Thank you for using the Dealership information system!");
     }
 
