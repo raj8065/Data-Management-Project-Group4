@@ -28,24 +28,6 @@ public class UserInterface {
         System.out.println("Password: ");
         String password = scanner.nextLine();
 
-        switch(username.toLowerCase()){
-            case "customer":
-                userType = UserType.CUSTOMER;
-                break;
-            case "dealership_manager":
-                userType = UserType.DEALERSHIP_MANAGER;
-                break;
-            case "system_admin":
-                userType = UserType.SYSTEM_ADMIN;
-                break;
-            case "user":
-                userType = UserType.SYSTEM_ADMIN;
-                break;
-            default:
-                userType = UserType.UNKNOWN;
-                break;
-        }
-        System.out.println(userType);
         cc = new CommandConstructor("./Database/AutomobileDB", username, password);
 
         inUse = true;
