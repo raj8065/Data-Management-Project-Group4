@@ -217,7 +217,7 @@ public class PopulationMachine {
     }
 
     private static void grantPermissions(String name, String table, String permission) {
-        if(permission.toUpperCase().equals("ALL"))
+        if(permission.toUpperCase().equals("ALL") && table == null)
             sendCommand("GRANT " + permission + " TO " + name);
         else
             sendCommand("GRANT " + permission + " ON " + table + " TO " + name);
