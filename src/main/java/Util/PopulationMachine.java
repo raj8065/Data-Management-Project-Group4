@@ -1,5 +1,8 @@
 package Util;
 
+import org.h2.command.ddl.CreateRole;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -209,15 +212,23 @@ public class PopulationMachine {
         sendCommand(sb.toString());
     }
 
-    private static void createRole(String roleName, String rolePermissions, String tables) {
-        sendCommand("CREATE ROLE " + roleName);
+    private static void createRole(String roleName) {
+        sendCommand("CREATE ROLE IF NOT EXISTS " + roleName);
+    }
 
-        String basis = "GRANT " + rolePermissions;
-        if(tables != null)
-            basis += " ON " + tables;
-        basis += " TO " + roleName;
+    private static void grantPermissions(String name, String table, String permission) {
+        if(permission.toUpperCase().equals("ALL"))
+            sendCommand("GRANT " + permission + " TO " + name);
+        else
+            sendCommand("GRANT " + permission + " ON " + table + " TO " + name);
+    }
 
-        sendCommand(basis);
+    private static void grantRole(String user, String role) {
+        sendCommand("Grant " + role + " TO " + user);
+    }
+
+    private static void createUser(String username, String password) {
+        sendCommand("CREATE USER IF NOT EXISTS " + username + " PASSWORD '" + password + "'");
     }
 
     /**
@@ -243,7 +254,9 @@ public class PopulationMachine {
         try {
             Statement stmt = conn.createStatement();
             stmt.execute(command);
-        } catch (SQLException e) {
+        } catch (JdbcSQLIntegrityConstraintViolationException e2) {
+
+        } catch (SQLException e ) {
             e.printStackTrace();
         }
     }
@@ -276,9 +289,53 @@ public class PopulationMachine {
         populate("vehicleBodyStyle", "VehicleBodyStyle.csv");
         populate("vehicleModel", "VehicleModel.csv");
 
-        //createRole("CUSTOMER", "EXECUTE" , "customer,customerOwns,sale,vehicle,vehicleBodyStyle,vehicleModel");
-        createRole("MANAGER", "EXECUTE" , null);
-        createRole("SYSTEM_ADMIN", "DBA", null);
+        createRole("Customer");
+        grantPermissions("Customer","Customer", "SELECT");
+        grantPermissions("Customer","CustomerPhoneNumbers", "SELECT, UPDATE");
+        grantPermissions("Customer","Sale", "SELECT");
+        grantPermissions("Customer","Vehicle", "SELECT");
+        grantPermissions("Customer","VehicleBodyStyle", "SELECT");
+        grantPermissions("Customer","VehicleModel", "SELECT");
+        grantPermissions("Customer","customerOwns", "SELECT");
+        grantPermissions("Customer","brandModels", "SELECT");
+
+        createRole("Dealer");
+        grantPermissions("Dealer","Customer", "ALL");
+        grantPermissions("Dealer","CustomerPhoneNumbers", "ALL");
+        grantPermissions("Dealer","Sale", "ALL");
+        grantPermissions("Dealer","Vehicle", "ALL");
+        grantPermissions("Dealer","VehicleBodyStyle", "ALL");
+        grantPermissions("Dealer","VehicleModel", "ALL");
+        grantPermissions("Dealer","brandModels", "ALL");
+        grantPermissions("Dealer", "Dealer", "SELECT");
+        grantPermissions("Dealer", "DealerCanSell", "SELECT");
+        grantPermissions("Dealer", "DealerOwns", "SELECT");
+
+
+        createRole("Salesman");
+        grantPermissions("Salesman","Customer", "SELECT");
+        grantPermissions("Salesman","CustomerPhoneNumbers", "SELECT");
+        grantPermissions("Salesman","Sale", "SELECT, INSERT");
+        grantPermissions("Salesman","Vehicle", "SELECT");
+        grantPermissions("Salesman","VehicleBodyStyle", "SELECT");
+        grantPermissions("Salesman","VehicleModel", "SELECT");
+        grantPermissions("Salesman","brandModels", "SELECT");
+        grantPermissions("Salesman", "Dealer", "SELECT");
+        grantPermissions("Salesman", "DealerCanSell", "SELECT");
+        grantPermissions("Salesman", "DealerOwns", "SELECT");
+
+        createRole("SystemAdmin");
+        grantPermissions("SystemAdmin", null, "ALL");
+
+        createUser("SalesUser", "SalesPass");
+        createUser("SysAdUser", "SysAdPass");
+        createUser("CustomerUser", "CustomerPass");
+        createUser("DlrUser", "DlrPass");
+
+        grantRole("SalesUser", "Salesman");
+        grantRole("SysAdUser", "SystemAdmin");
+        grantRole("CustomerUser", "Customer");
+        grantRole("DlrUser", "Dealer");
 
         closeConnection();
     }
