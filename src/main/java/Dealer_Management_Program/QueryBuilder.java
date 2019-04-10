@@ -15,7 +15,7 @@ public class QueryBuilder {
 	//The connection to the database
 	private Connection conn;
 
-	public QueryBuilder(String location, String user, String password) {
+	public QueryBuilder(String location, String user, String password) throws SQLException {
 		createConnection(location, user, password);
 	}
 
@@ -55,24 +55,26 @@ public class QueryBuilder {
 	 * @param user: user name for the owner of the database
 	 * @param password: password of the database owner
 	 */
-	public void createConnection(String location,
+	public boolean createConnection(String location,
 			                     String user,
-			                     String password){
+			                     String password) throws SQLException {
 		try {
-			
+
 			//This needs to be on the front of your location
 			String url = "jdbc:h2:" + location;
-			
+
 			//This tells it to use the h2 driver
 			Class.forName("org.h2.Driver");
-			
+
 			//creates the connection
 			conn = DriverManager.getConnection(url,
-					                           user,
-					                           password);
-		} catch (SQLException | ClassNotFoundException e) {
+					user,
+					password);
+			return true;
+		} catch (ClassNotFoundException e) {
 			//You should handle this better
 			e.printStackTrace();
+			return false;
 		}
 	}
 	

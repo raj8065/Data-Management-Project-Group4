@@ -6,16 +6,7 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-    enum UserType {
-        UNKNOWN,
-        CUSTOMER,
-        DEALERSHIP_MANAGER,
-        SYSTEM_ADMIN
-    }
-
-    static Enum userType = UserType.UNKNOWN;
-
-    private static boolean inUse;
+    private static boolean inUse = false;
 
     private static CommandConstructor cc;
 
@@ -28,12 +19,25 @@ public class UserInterface {
         System.out.println("Password: ");
         String password = scanner.nextLine();
 
-        cc = new CommandConstructor("./Database/AutomobileDB", username, password);
+        try {
+            cc = new CommandConstructor("./Database/AutomobileDB", username, password);
 
-        inUse = true;
+            System.out.println("------------------------------------------------------------");
+            System.out.println("Logged In");
+            System.out.println("------------------------------------------------------------");
+
+            inUse = true;
+        } catch (SQLException e) {
+            System.out.println("------------------------------------------------------------");
+            System.out.println("Username or Password incorrect, exiting program.");
+        }
+
+
+
         while(inUse)
             processInput(scanner.nextLine());
 
+        System.out.println("------------------------------------------------------------");
         System.out.println("Thank you for using the Dealership information system!");
     }
 
@@ -49,10 +53,9 @@ public class UserInterface {
         System.out.println("Commands");
         System.out.println("------------------------------------------------------------");
         System.out.println("-h                                #Displays the help message");
-        System.out.println("-q                                #Quits the program");
-        if(userType == UserType.SYSTEM_ADMIN){
-            System.out.println("-c                                #Allows direct SQL Query");
-        }
+        System.out.println("-e                                #Exits the program");
+        System.out.println("-c                                #Allows direct SQL Command");
+        System.out.println("-q                                #Allows direct SQL Query");
         System.out.println("------------------------------------------------------------");
     }
 
@@ -64,43 +67,51 @@ public class UserInterface {
             case("-h"):
                 displayHelp();
                 break;
-            case("-q"):
+
+            case("-e"):
                 inUse = false;
+                cc.closeConnection();
                 break;
+
             case("-c"):
-                if(userType == UserType.SYSTEM_ADMIN) {
-                    try {
-                        displayResult(cc.getDBFullCommand(in.substring(2).trim()));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                }
+                cc.useCommand(in.substring(2).trim());
+                break;
+
+            case("-q"):
+                displayResult(cc.useQuery(in.substring(2).trim()));
+                break;
+
             default:
                 System.out.println("Unknown input, use -h for help and information.");
         }
     }
 
-    private static void displayResult(ResultSet result) throws SQLException {
+    private static void displayResult(ResultSet result){
 
         if(result == null){
             return;
         }
 
-        int amnt = result.getMetaData().getColumnCount();
+        int amnt = 0;
+        try {
+            amnt = result.getMetaData().getColumnCount();
 
-        for (int i = 0; i < amnt; i++)
-            System.out.print(result.getMetaData().getColumnName(i + 1) + " ");
-        System.out.println();
-        System.out.println("-----------------------------------------------------");
 
-        while (result.next()) {
             for (int i = 0; i < amnt; i++)
-                System.out.print(result.getObject(i + 1).toString() + " ");
-
+                System.out.print(result.getMetaData().getColumnName(i + 1) + " ");
             System.out.println();
-        }
+            System.out.println("-----------------------------------------------------");
 
+            while (result.next()) {
+                for (int i = 0; i < amnt; i++)
+                    System.out.print(result.getObject(i + 1).toString() + " ");
+
+                System.out.println();
+            }
+        } catch (SQLException e) {
+            System.out.println();
+            System.out.println("-- ERROR METADATA NOT FOUND --");
+        }
 
     }
 
