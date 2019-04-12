@@ -94,13 +94,17 @@ public class PopulationMachine {
             "Day numeric(2) not null," +
             "Month numeric(2) not null," +
             "Year numeric(4) not null," +
-            "primary key (VIN))";
+            "primary key(VIN)," +
+            "foreign key (VIN) references vehicle(VIN)," +
+            "foreign key (CID) references customer(CID)," +
+            "foreign key (DID) references dealer(DID))";
         // The SQL query to create the customerPhoneNumbers table
         String createCustomerPhoneNumbers =
             "create table if not exists customerPhoneNumbers(" +
             "CID numeric(5) not null," +
             "phoneNumber numeric(10)," +
-            "primary key (CID,phoneNumber))";
+            "primary key (CID,phoneNumber)," +
+            "foreign key (CID) references Customer(CID))";
         // The SQL query to create the brandModels table
         String createBrandModels =
             "create table if not exists brandModels(" +
@@ -112,37 +116,47 @@ public class PopulationMachine {
             "create table if not exists customerOwns(" +
             "CID numeric(5) not null," +
             "VIN varchar(17) not null," +
-            "primary key (CID,VIN))";
+            "primary key (CID,VIN)," +
+            "foreign key (CID) references customer(CID)," +
+            "foreign key (VIN) references vehicle(VIN))";
         // The SQL query to create the dealerCanSell table
         String createDealerCanSell =
             "create table if not exists dealerCanSell(" +
             "DID numeric(5) not null," +
             "BrandName varchar(20) not null," +
-            "primary key (DID,BrandName))";
+            "primary key (DID,BrandName)," +
+            "foreign key (DID) references dealer(DID)," +
+            "foreign key (BrandName) references brandModels(BrandName))";
         // The SQL query to create the dealerOwns table
         String createDealerOwns =
             "create table if not exists dealerOwns(" +
             "DID numeric(5) not null," +
             "VIN varchar(17) not null," +
-            "primary key (DID,VIN))";
+            "primary key (DID,VIN)," +
+            "foreign key (DID) references dealer(DID)," +
+            "foreign key (VIN) references vehicle(VIN))";
         // The SQL query to create the modelBodyStyle table
         String createModelBodyStyle =
             "create table if not exists modelBodyStyle(" +
             "ModelName varchar(20) not null," +
             "BodyStyle varchar(20) not null," +
-            "primary key (ModelName, BodyStyle))";
+            "primary key (ModelName, BodyStyle)," +
+            "foreign key (ModelName) references brandModels(ModelName))";
         // The SQL query to create the vehicleBodyStyle table
         String createVehicleBodyStyle =
             "create table if not exists vehicleBodyStyle(" +
             "VIN varchar(17) not null," +
             "BodyStyle varchar(20) not null," +
-            "primary key (VIN))";
+            "primary key (VIN)," +
+            "foreign key (VIN) references vehicle(VIN)," +
+            "foreign key (BodyStyle) references modelBodyStyle(BodyStyle))";
         // The SQL query to create the vehicleModel table
         String createVehicleModel =
             "create table if not exists vehicleModel(" +
             "VIN varchar(17) not null," +
             "ModelName varchar(20) not null," +
-            "primary key (VIN))";
+            "primary key (VIN)," +
+            "foreign key (ModelName) references brandModels(ModelName))";
 
         String[] createCommandList = {createCustomer, createVehicle, createDealer, createSale, createCustomerPhoneNumbers,
             createBrandModels, createCustomerOwns, createDealerCanSell, createDealerOwns, createModelBodyStyle,

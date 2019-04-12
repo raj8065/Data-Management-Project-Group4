@@ -20,6 +20,7 @@ public class CommandConstructor {
             return qb.executeCommand(SQLCommand);
         } catch (SQLException e) {
             System.out.println("You do not have permissions to activate this command.");
+            System.err.println(e);
         }
         return false;
     }
@@ -31,6 +32,7 @@ public class CommandConstructor {
             result = qb.executeQuery(SQLCommand);
         } catch (SQLException e) {
             System.out.println("You do not have permissions to send this query");
+
         }
 
         return result;
@@ -38,6 +40,7 @@ public class CommandConstructor {
 
     public void makeSale(String VIN, String Dealer, String Customer) {
         useCommand("PREPARE COMMIT CAR_SALE");
-        useCommand("COMMIT TRANSACTION CAR_SALE");
+        useCommand("INSERT INTO CUSTOMEROWNS VALES ()");
+        useCommand("COMMIT");
     }
 }

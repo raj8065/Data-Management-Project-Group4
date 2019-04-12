@@ -33,7 +33,6 @@ public class UserInterface {
         }
 
 
-
         while(inUse)
             processInput(scanner.nextLine());
 
