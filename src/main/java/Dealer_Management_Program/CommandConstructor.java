@@ -40,7 +40,19 @@ public class CommandConstructor {
 
     public void makeSale(String VIN, String Dealer, String Customer) {
         useCommand("PREPARE COMMIT CAR_SALE");
-        useCommand("INSERT INTO CUSTOMEROWNS VALES ()");
+
+
+        try {
+        ResultSet customer = useQuery("SELECT CID FROM CUSTOMERS WHERE CustomerName='" + Customer + "'");
+        String CID = "";
+        CID = customer.getString("CID");
+        useCommand("INSERT INTO CUSTOMEROWNS VALES (" + CID + ", " + VIN + ")");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        useCommand("DELETE FROM DEALEROWNS WHERE VIN=" + VIN);
+
         useCommand("COMMIT");
     }
 }
