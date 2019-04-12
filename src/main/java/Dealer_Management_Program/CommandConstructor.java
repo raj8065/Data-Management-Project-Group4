@@ -15,10 +15,6 @@ public class CommandConstructor {
         qb.closeConnection();
     }
 
-    public ResultSet getDB(String userInput){
-        return null;
-    }
-
     public void useCommand(String SQLCommand){
         qb.executeCommand(SQLCommand);
     }
