@@ -15,15 +15,29 @@ public class CommandConstructor {
         qb.closeConnection();
     }
 
-    public void useCommand(String SQLCommand){
-        qb.executeCommand(SQLCommand);
+    public boolean useCommand(String SQLCommand){
+        try {
+            return qb.executeCommand(SQLCommand);
+        } catch (SQLException e) {
+            System.out.println("You do not have permissions to activate this command.");
+        }
+        return false;
     }
 
     public ResultSet useQuery(String SQLCommand){
 
         ResultSet result = null;
-        result = qb.sendQueryFullCommand(SQLCommand);
+        try {
+            result = qb.executeQuery(SQLCommand);
+        } catch (SQLException e) {
+            System.out.println("You do not have permissions to send this query");
+        }
 
         return result;
+    }
+
+    public void makeSale(String VIN, String Dealer, String Customer) {
+        useCommand("PREPARE COMMIT CAR_SALE");
+        useCommand("COMMIT TRANSACTION CAR_SALE");
     }
 }

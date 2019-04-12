@@ -81,6 +81,10 @@ public class UserInterface {
                 displayResult(cc.useQuery(in.substring(2).trim()));
                 break;
 
+            case("-s"):
+                cc.makeSale("","","");
+                break;
+
             default:
                 System.out.println("Unknown input, use -h for help and information.");
         }
