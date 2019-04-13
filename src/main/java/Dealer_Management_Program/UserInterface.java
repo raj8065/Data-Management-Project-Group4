@@ -41,7 +41,7 @@ public class UserInterface {
     }
 
     private static void displayStartupMessage() {
-        System.out.println("Welcome to the WIP Dealership information management system.");
+        System.out.println("Welcome to the Dealership information management system.");
         System.out.println("+----------------------------------------------------------+");
         System.out.println("| To get help or information type -h                       |");
         System.out.println("+----------------------------------------------------------+");
