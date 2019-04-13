@@ -105,6 +105,12 @@ public class UserInterface {
             System.out.println();
             System.out.println("-----------------------------------------------------");
 
+            if(result != null)
+                for (int i = 0; i < amnt; i++)
+                    System.out.print(result.getObject(i + 1).toString() + " ");
+
+            System.out.println();
+
             while (result.next()) {
                 for (int i = 0; i < amnt; i++)
                     System.out.print(result.getObject(i + 1).toString() + " ");
