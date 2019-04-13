@@ -88,13 +88,25 @@ public class CommandConstructor {
 
             ArrayList<Integer> dealer = getDealerID(Dealer);
             if(dealer != null && dealer.size() > 0) {
-                //Gives car to customer
-                useCommand("INSERT INTO CUSTOMEROWNS VALUES (" + customer.get(0) + ", " + VIN + ")");
 
+                //Checks DealerOwns
+                ResultSet isEmpty = useQuery("SELECT * FROM DEALEROWNS WHERE VIN=" + VIN + " AND DID=" + dealer.get(0));
+                try {
+                    if(!isEmpty.next()) {
+                        System.out.println("Dealer " + Dealer.replaceAll("''","'") + "does not own VIN = " + VIN );
+                        return;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
                 //Takes away from dealer
                 useCommand("DELETE FROM DEALEROWNS WHERE VIN=" + VIN + " AND DID=" + dealer.get(0));
 
+                //Gives car to customer
+                useCommand("INSERT INTO CUSTOMEROWNS VALUES (" + customer.get(0) + ", " + VIN + ")");
+
+                //Creates Sale
                 useCommand("INSERT INTO SALE VALUES(" + VIN + ", " + customer.get(0) + ", " + dealer.get(0)
                         + ", " + Cost + ", DAY_OF_MONTH(CURRENT_DATE), MONTH(CURRENT_DATE), YEAR(CURRENT_DATE))");
             } else {
