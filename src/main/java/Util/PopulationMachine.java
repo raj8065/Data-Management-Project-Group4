@@ -77,6 +77,7 @@ public class PopulationMachine {
             "color varchar(20)," +
             "transmission varchar(20)," +
             "engine varchar(20)," +
+            "year varchar(4)," +
             "primary key (VIN))";
         // The SQL query to create the dealer table
         String createDealer =
