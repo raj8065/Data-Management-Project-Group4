@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - UserInterface",
+            "request": "launch",
+            "mainClass": "Dealer_Management_Program.UserInterface",
+            "projectName": "Data-Management-Project-Group4"
+        }
+    ]
+}
