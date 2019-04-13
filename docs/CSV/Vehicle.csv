@@ -1,17 +1,17 @@
-VIN varchar(17) not null,color varchar(20),transmission varchar(20),engine varchar(20)
-0,Red,Automatic,V8
-1,Red,Automatic,V6
-2,Green,Manual,V6
-3,Blue,Automatic,V8
-4,Gray,Automatic,V6
-5,Gray,Automatic,V6
-6,White,Automatic,I4
-7,Red,Automatic,I4
-8,Gray,Automatic,I4
-9,Black,Automatic,I4 Diesel
-10,Gray,Automatic,V8
-11,White,Automatic,V6
-12,Red,Automatic,I4
-13,Blue,Automatic,V6
-14,Gray,Automatic,V8
-15,Black,Automatic,V6
+VIN varchar(17) not null,color varchar(20),transmission varchar(20),engine varchar(20), year varchar(4)
+0,Red,Automatic,V8,2016
+1,Red,Automatic,V6,1998
+2,Green,Manual,V6,2019
+3,Blue,Automatic,V8,2015
+4,Gray,Automatic,V6,2008
+5,Gray,Automatic,V6,2011
+6,White,Automatic,I4,2015
+7,Red,Automatic,I4,1995
+8,Gray,Automatic,I4,1999
+9,Black,Automatic,I4 Diesel,2013
+10,Gray,Automatic,V8,2016
+11,White,Automatic,V6,2019
+12,Red,Automatic,I4,2004
+13,Blue,Automatic,V6,2014
+14,Gray,Automatic,V8,2018
+15,Black,Automatic,V6,2016

@@ -77,6 +77,7 @@ public class PopulationMachine {
             "color varchar(20)," +
             "transmission varchar(20)," +
             "engine varchar(20)," +
+            "year varchar(4)," +
             "primary key (VIN))";
         // The SQL query to create the dealer table
         String createDealer =
@@ -110,7 +111,7 @@ public class PopulationMachine {
             "create table if not exists brandModels(" +
             "BrandName varchar(20) not null," +
             "ModelName varchar(20) not null," +
-            "primary key (BrandName,ModelName))";
+            "primary key (BrandName, ModelName))";
         // The SQL query to create the customerOwns table
         String createCustomerOwns =
             "create table if not exists customerOwns(" +
@@ -323,6 +324,7 @@ public class PopulationMachine {
 
         createRole("Dealer");
         grantPermissions("Dealer","Customer", "ALL");
+        grantPermissions("Dealer","CustomerOwns", "ALL");
         grantPermissions("Dealer","CustomerPhoneNumbers", "ALL");
         grantPermissions("Dealer","Sale", "ALL");
         grantPermissions("Dealer","Vehicle", "ALL");
@@ -331,7 +333,7 @@ public class PopulationMachine {
         grantPermissions("Dealer","brandModels", "ALL");
         grantPermissions("Dealer", "Dealer", "SELECT");
         grantPermissions("Dealer", "DealerCanSell", "SELECT");
-        grantPermissions("Dealer", "DealerOwns", "SELECT");
+        grantPermissions("Dealer", "DealerOwns", "ALL");
 
 
         createRole("Salesman");

@@ -48,7 +48,7 @@ public class UserInterface {
     }
 
     private static void displayStartupMessage() {
-        System.out.println("Welcome to the WIP Dealership information management system.");
+        System.out.println("Welcome to the Dealership information management system.");
         System.out.println("+----------------------------------------------------------+");
         System.out.println("| To get help or information type -h                       |");
         System.out.println("+----------------------------------------------------------+");
@@ -66,12 +66,13 @@ public class UserInterface {
 
         } else {
             System.out.println("Commands");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("-h                                #Displays the help message");
-            System.out.println("-e                                #Exits the program");
-            System.out.println("-c                                #Allows direct SQL Command");
-            System.out.println("-q                                #Allows direct SQL Query");
-            System.out.println("------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------");
+            System.out.println("-h                                                      #Displays the help message");
+            System.out.println("-e                                                      #Exits the program");
+            System.out.println("-c [SQL Command]                                        #Allows direct SQL Command");
+            System.out.println("-q [SQL Query]                                          #Allows direct SQL Query");
+            System.out.println("-s '[VIN]' '[Dealer Name]' '[Customer Name]' '[Cost]'   #Allows the sale of vehicles");
+            System.out.println("------------------------------------------------------------------");
         }
     }
 
@@ -102,7 +103,8 @@ public class UserInterface {
                 break;
 
             case("-s"):
-                cc.makeSale("","","");
+                String[] temp = in.split("(' '*)|('* ')|('$)");
+                cc.makeSale(temp[1],temp[2].replaceAll("'","''"),temp[3],temp[4]);
                 break;
 
             case("-f"):
