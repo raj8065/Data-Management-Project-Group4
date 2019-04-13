@@ -10,9 +10,13 @@ public class UserInterface {
 
     private static CommandConstructor cc;
 
+    private static String user = "";
+
+    private static Scanner scanner;
+
     public static void main(String[] args) {
         displayStartupMessage();
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
 
 
         String username = scanner.nextLine();
@@ -26,8 +30,11 @@ public class UserInterface {
             System.out.println("Logged In");
             System.out.println("------------------------------------------------------------");
 
+            user = getUserName(cc.useQuery("SELECT CURRENT_USER()"));
+
             inUse = true;
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("------------------------------------------------------------");
             System.out.println("Username or Password incorrect, exiting program.");
         }
@@ -49,17 +56,31 @@ public class UserInterface {
     }
 
     private static void displayHelp() {
-        System.out.println("Commands");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("-h                                #Displays the help message");
-        System.out.println("-e                                #Exits the program");
-        System.out.println("-c                                #Allows direct SQL Command");
-        System.out.println("-q                                #Allows direct SQL Query");
-        System.out.println("------------------------------------------------------------");
+        if(user.equals("CUSTOMERUSER")){
+            System.out.println("Commands");
+            System.out.println("------------------------------------------------------------");
+            System.out.println("-f                                #Enter Search Mode");
+            System.out.println("-e                                #Exits the program");
+            System.out.println("-h                                #Displays the help message");
+            System.out.println("------------------------------------------------------------");
+
+        } else {
+            System.out.println("Commands");
+            System.out.println("------------------------------------------------------------");
+            System.out.println("-h                                #Displays the help message");
+            System.out.println("-e                                #Exits the program");
+            System.out.println("-c                                #Allows direct SQL Command");
+            System.out.println("-q                                #Allows direct SQL Query");
+            System.out.println("------------------------------------------------------------");
+        }
     }
 
     private static void processInput(String in) {
         in = in.trim();
+        if(in.length() < 2) {
+            System.out.println("Unknown input, use -h for help and information.");
+            return;
+        }
         String flag = in.substring(0, 2);
 
         switch(flag) {
@@ -82,6 +103,10 @@ public class UserInterface {
 
             case("-s"):
                 cc.makeSale("","","");
+                break;
+
+            case("-f"):
+                searchVehicles();
                 break;
 
             default:
@@ -116,6 +141,63 @@ public class UserInterface {
             System.out.println("-- ERROR METADATA NOT FOUND --");
         }
 
+    }
+
+    private static void searchVehicles(){
+        System.out.println("---------------------You are now in Vehicle Search Mode--------------------");
+        System.out.println("Available Commands:");
+        System.out.println("equal 'attribute' 'value'           # attribute must equal value");
+        System.out.println("less 'attribute' 'value'            # attribute must be less than value");
+        System.out.println("greater 'attribute' 'value'         # attribute must be greater than value");
+        System.out.println("-a                                  # display attribute information");
+        System.out.println("-e                                  # Exit to main menu");
+        System.out.println("---------------------------------------------------------------------------");
+        boolean findMode = true;
+        while(findMode){
+            String in = scanner.nextLine();
+            try{
+                if(in.substring(0,2).equals("-a")){ // display attribute information
+                    // for now just list all
+                    displayResult(cc.useQuery("SELECT * FROM fullVehicle"));
+                } else if(in.substring(0,2).equals("-e")) {
+                    findMode = false;
+                } else if(in.substring(0,4).equals("less")) {
+                    System.out.println("less than not implemented yet");
+                } else if(in.substring(0,5).equals("equal")) {
+                    System.out.println("equal not implemented yet");
+                } else if(in.substring(0,7).equals("greater")) {
+                    System.out.println("greater than not implemented yet");
+                } else {
+                    System.out.println("Incorrect Input, Try Again. -a to list attribute info");
+                }
+            } catch (Exception e){
+                System.out.println("Incorrect Input, Try Again. -a to list attribute info");
+            }
+        }
+        System.out.println("Returning To Main Menu");
+        displayHelp();
+    }
+
+
+    private static String getUserName(ResultSet result) {
+        if(result == null){
+            return "";
+        }
+
+        int amnt = 0;
+        try {
+            amnt = result.getMetaData().getColumnCount();
+
+
+            while (result.next()) {
+                for (int i = 0; i < amnt; i++)
+                    return result.getObject(i + 1).toString();
+
+            }
+        } catch (SQLException e) {
+            return "";
+        }
+        return "";
     }
 
 }

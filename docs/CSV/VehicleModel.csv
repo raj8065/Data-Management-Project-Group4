@@ -2,7 +2,7 @@ VIN varchar(17) not null,ModelName varchar(20) not null
 0,Suburban
 1,Impala
 2,Impala
-3,SIlverado
+3,Silverado
 4,Enclave
 5,Enclave
 6,Lacrosse

@@ -158,9 +158,16 @@ public class PopulationMachine {
             "primary key (VIN)," +
             "foreign key (ModelName) references brandModels(ModelName))";
 
+        // The SQL query to create the Vehicle View
+        String createFullVehicle =
+                "create or replace view fullVehicle as " +
+                "SELECT a.VIN, c.ModelName, b.BodyStyle, a.color, a.transmission, a.engine " +
+                "FROM vehicle a INNER JOIN vehicleBodyStyle b on a.VIN=b.VIN " +
+                "INNER JOIN vehicleModel c on a.VIN=c.VIN";
+
         String[] createCommandList = {createCustomer, createVehicle, createDealer, createSale, createCustomerPhoneNumbers,
             createBrandModels, createCustomerOwns, createDealerCanSell, createDealerOwns, createModelBodyStyle,
-            createVehicleBodyStyle, createVehicleModel};
+            createVehicleBodyStyle, createVehicleModel, createFullVehicle};
         sendCommands(createCommandList);
     }
 
@@ -312,6 +319,7 @@ public class PopulationMachine {
         grantPermissions("Customer","VehicleModel", "SELECT");
         grantPermissions("Customer","customerOwns", "SELECT");
         grantPermissions("Customer","brandModels", "SELECT");
+        grantPermissions("Customer", "fullVehicle", "SELECT");
 
         createRole("Dealer");
         grantPermissions("Dealer","Customer", "ALL");
