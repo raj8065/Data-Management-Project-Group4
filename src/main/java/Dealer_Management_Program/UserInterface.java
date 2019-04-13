@@ -50,12 +50,13 @@ public class UserInterface {
 
     private static void displayHelp() {
         System.out.println("Commands");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("-h                                #Displays the help message");
-        System.out.println("-e                                #Exits the program");
-        System.out.println("-c                                #Allows direct SQL Command");
-        System.out.println("-q                                #Allows direct SQL Query");
-        System.out.println("------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("-h                                                      #Displays the help message");
+        System.out.println("-e                                                      #Exits the program");
+        System.out.println("-c [SQL Command]                                        #Allows direct SQL Command");
+        System.out.println("-q [SQL Query]                                          #Allows direct SQL Query");
+        System.out.println("-s '[VIN]' '[Dealer Name]' '[Customer Name]' '[Cost]'   #Allows the sale of vehicles");
+        System.out.println("------------------------------------------------------------------");
     }
 
     private static void processInput(String in) {
@@ -81,7 +82,8 @@ public class UserInterface {
                 break;
 
             case("-s"):
-                cc.makeSale("","","");
+                String[] temp = in.split("(' '*)|('* ')|('$)");
+                cc.makeSale(temp[1],temp[2].replaceAll("'","''"),temp[3],temp[4]);
                 break;
 
             default:
@@ -104,12 +106,6 @@ public class UserInterface {
                 System.out.print(result.getMetaData().getColumnName(i + 1) + " ");
             System.out.println();
             System.out.println("-----------------------------------------------------");
-
-            if(result != null)
-                for (int i = 0; i < amnt; i++)
-                    System.out.print(result.getObject(i + 1).toString() + " ");
-
-            System.out.println();
 
             while (result.next()) {
                 for (int i = 0; i < amnt; i++)

@@ -3,8 +3,6 @@ package Dealer_Management_Program;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class CommandConstructor {
 
@@ -22,8 +20,8 @@ public class CommandConstructor {
         try {
             return qb.executeCommand(SQLCommand);
         } catch (SQLException e) {
-            System.out.println("You do not have permissions to activate this command.");
             System.err.println(e);
+            System.out.println("You do not have permissions to activate this command.");
         }
         return false;
     }
@@ -34,6 +32,7 @@ public class CommandConstructor {
         try {
             result = qb.executeQuery(SQLCommand);
         } catch (SQLException e) {
+            System.err.println(e);
             System.out.println("You do not have permissions to send this query");
 
         }
@@ -41,39 +40,39 @@ public class CommandConstructor {
         return result;
     }
 
-    private ArrayList<String> parseResultSetWithString(ResultSet rs, String columnName) throws SQLException {
+    private ArrayList<Integer> parseResultSetWithInteger(ResultSet rs, String columnName) throws SQLException {
 
-        ArrayList<String> parsed = new ArrayList<>();
+        ArrayList<Integer> parsed = new ArrayList<>();
 
         if (rs != null) {
-            parsed.add(rs.getString(columnName));
 
             while (rs.next())
-                parsed.add(rs.getString(columnName));
+                parsed.add(rs.getInt(columnName));
         }
 
         return parsed;
     }
 
-    private ArrayList<String> getCustomerID(String name) {
+    private ArrayList<Integer> getCustomerID(String name) {
         try {
 
             ResultSet customers = useQuery("SELECT CID FROM CUSTOMER WHERE name='" + name + "'");
 
-            return parseResultSetWithString(customers, "CID");
+            return parseResultSetWithInteger(customers, "CID");
 
         } catch (SQLException e) {
+            System.err.println(e);
             System.out.println("Could not find customer(s) of name '" + name + "'.");
             return null;
         }
     }
 
-    private ArrayList<String> getDealerID(String name) {
+    private ArrayList<Integer> getDealerID(String name) {
         try {
 
             ResultSet dealers = useQuery("SELECT DID FROM DEALER WHERE name='" + name + "'");
 
-            return parseResultSetWithString(dealers, "DID");
+            return parseResultSetWithInteger(dealers, "DID");
 
         } catch (SQLException e) {
             System.out.println("Could not find dealer(s) of name '" + name + "'.");
@@ -81,20 +80,23 @@ public class CommandConstructor {
         }
     }
 
-    public void makeSale(String VIN, String Dealer, String Customer) {
+    public void makeSale(String VIN, String Dealer, String Customer, String Cost) {
         useCommand("PREPARE COMMIT CAR_SALE");
 
-        ArrayList<String> customer = getCustomerID(Customer);
-        if(customer != null) {
+        ArrayList<Integer> customer = getCustomerID(Customer);
+        if(customer != null && customer.size() > 0) {
 
-            ArrayList<String> dealer = getCustomerID(Dealer);
-            if(dealer != null) {
+            ArrayList<Integer> dealer = getDealerID(Dealer);
+            if(dealer != null && dealer.size() > 0) {
                 //Gives car to customer
-                useCommand("INSERT INTO CUSTOMEROWNS VALES (" + customer.get(0) + ", " + VIN + ")");
+                useCommand("INSERT INTO CUSTOMEROWNS VALUES (" + customer.get(0) + ", " + VIN + ")");
 
 
                 //Takes away from dealer
                 useCommand("DELETE FROM DEALEROWNS WHERE VIN=" + VIN + " AND DID=" + dealer.get(0));
+
+                useCommand("INSERT INTO SALE VALUES(" + VIN + ", " + customer.get(0) + ", " + dealer.get(0)
+                        + ", " + Cost + ", DAY_OF_MONTH(CURRENT_DATE), MONTH(CURRENT_DATE), YEAR(CURRENT_DATE))");
             } else {
                 System.out.println("Unable to make sale, due to dealer '" + Dealer + "' being unable to be found.");
 
