@@ -1,5 +1,7 @@
 package Util;
 
+import Dealer_Management_Program.CommandConstructor;
+import Dealer_Management_Program.UserInterface;
 import org.h2.command.ddl.CreateRole;
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 
@@ -111,7 +113,7 @@ public class PopulationMachine {
             "create table if not exists brandModels(" +
             "BrandName varchar(20) not null," +
             "ModelName varchar(20) not null," +
-            "primary key (BrandName, ModelName))";
+            "primary key (BrandName,ModelName))";
         // The SQL query to create the customerOwns table
         String createCustomerOwns =
             "create table if not exists customerOwns(" +
@@ -189,6 +191,8 @@ public class PopulationMachine {
             }
 
             br.close();
+
+
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
@@ -203,8 +207,14 @@ public class PopulationMachine {
      */
     private static void populateLine(String table, ResultSetMetaData meta, String[] parts) throws SQLException {
         StringBuilder sb = new StringBuilder();
-        sb.append("INSERT INTO " + table + " VALUES (");
+        sb.append("INSERT INTO " + table + "(");
+        for(int i  = 0; i < parts.length; i++) {
+            sb.append(meta.getColumnName(i + 1));
+            if(i < parts.length-1)
+                sb.append(",");
+        }
 
+        sb.append(") VALUES (");
         //Determines type of the column and formats the CSV part the appends it to the SQL string
         for(int i  = 0; i < parts.length; i++) {
             switch (meta.getColumnType(i+1)) {
@@ -270,7 +280,6 @@ public class PopulationMachine {
             Statement stmt = conn.createStatement();
             stmt.execute(command);
         } catch (JdbcSQLIntegrityConstraintViolationException e2) {
-
         } catch (SQLException e ) {
             e.printStackTrace();
         }
@@ -291,18 +300,22 @@ public class PopulationMachine {
 
         initialize();
 
-        populate("brandModels", "BrandModels.csv");
         populate("customer", "Customer.csv");
-        populate("customerOwns", "CustomerOwns.csv");
-        populate("customerPhoneNumbers", "CustomerPhoneNumbers.csv");
         populate("dealer", "Dealer.csv");
-        populate("dealerCanSell", "DealerCanSell.csv");
-        populate("dealerOwns", "DealerOwns.csv");
-        populate("modelBodyStyle", "ModelBodyStyles.csv");
-        populate("sale", "Sale.csv");
         populate("vehicle", "Vehicle.csv");
+
+        populate("customerOwns", "CustomerOwns.csv");
+        populate("dealerOwns", "DealerOwns.csv");
+
+        populate("brandModels", "BrandModels.csv");
+        populate("modelBodyStyle", "ModelBodyStyles.csv");
         populate("vehicleBodyStyle", "VehicleBodyStyle.csv");
         populate("vehicleModel", "VehicleModel.csv");
+
+        populate("customerPhoneNumbers", "CustomerPhoneNumbers.csv");
+        populate("sale", "Sale.csv");
+        populate("dealerCanSell", "DealerCanSell.csv");
+
 
         createRole("Customer");
         grantPermissions("Customer","Customer", "SELECT");

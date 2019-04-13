@@ -91,7 +91,7 @@ public class UserInterface {
         }
     }
 
-    private static void displayResult(ResultSet result){
+    public static void displayResult(ResultSet result){
 
         if(result == null){
             return;
