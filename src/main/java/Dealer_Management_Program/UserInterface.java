@@ -77,7 +77,7 @@ public class UserInterface {
             System.out.println("-c [SQL Command]                                        #Allows direct SQL Command");
             System.out.println("-q [SQL Query]                                          #Allows direct SQL Query");
             System.out.println("-s '[VIN]' '[Dealer Name]' '[Customer Name]' '[Cost]'   #Allows the sale of vehicles");
-            System.out.println("-n 'number'                                             #Create 'number' vehicles from the factory");
+            System.out.println("-n 'number' '[Dealer ID]'                               #Create 'number' vehicles from the factory");
             System.out.println("------------------------------------------------------------------");
         } else {
             System.out.println("Commands");
@@ -132,7 +132,16 @@ public class UserInterface {
 
             case("-n"):
                 try {
-                    int num = VehicleFactory.newRandomVehicles(cc, Integer.parseInt(in.split(" ")[1]));
+                    String[] arg = in.split(" ");
+                    int num = 0;
+                    if(arg.length <= 1){
+                        System.out.println("Unknown input, use -h for help and information.");
+                        break;
+                    } else if (arg.length == 2) {
+                        num = VehicleFactory.newRandomVehicles(cc, Integer.parseInt(arg[1]));
+                    } else {
+                        num = VehicleFactory.newRandomVehicles(cc, Integer.parseInt(arg[1]), Integer.parseInt(arg[2]));
+                    }
                     System.out.println(num + " Vehicles were successfully added");
                 } catch (NumberFormatException e) {
                     System.out.println("Unknown input, use -h for help and information.");

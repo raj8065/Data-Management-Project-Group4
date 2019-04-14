@@ -351,7 +351,6 @@ public class PopulationMachine {
         grantPermissions("Dealer", "DealerOwns", "ALL");
         grantPermissions("Dealer", "fullVehicle", "ALL");
         grantPermissions("Dealer", "modelBodyStyle", "SELECT");
-        grantPermissions("Dealer", "brandModels", "SELECT");
 
         createRole("Salesman");
         grantPermissions("Salesman","Customer", "SELECT");
