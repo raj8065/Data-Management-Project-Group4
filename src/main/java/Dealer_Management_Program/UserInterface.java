@@ -67,6 +67,7 @@ public class UserInterface {
             System.out.println("-f                                #Enter Search Mode");
             System.out.println("-e                                #Exits the program");
             System.out.println("-h                                #Displays the help message");
+            System.out.println("-d                                #Displays dealerships");
             System.out.println("------------------------------------------------------------");
 
         } else if(user.equals("SYSADUSER") || user.equals("DLRUSER")){
@@ -76,6 +77,7 @@ public class UserInterface {
             System.out.println("-e                                                      #Exits the program");
             System.out.println("-c [SQL Command]                                        #Allows direct SQL Command");
             System.out.println("-q [SQL Query]                                          #Allows direct SQL Query");
+            System.out.println("-d                                                      #Displays dealerships");
             System.out.println("-s '[VIN]' '[Dealer Name]' '[Customer Name]' '[Cost]'   #Allows the sale of vehicles");
             System.out.println("-n 'number' '[Dealer ID]'                               #Create 'number' vehicles from the factory");
             System.out.println("------------------------------------------------------------------");
@@ -86,6 +88,7 @@ public class UserInterface {
             System.out.println("-e                                                      #Exits the program");
             System.out.println("-c [SQL Command]                                        #Allows direct SQL Command");
             System.out.println("-q [SQL Query]                                          #Allows direct SQL Query");
+            System.out.println("-d                                                      #Displays dealerships");
             System.out.println("-s '[VIN]' '[Dealer Name]' '[Customer Name]' '[Cost]'   #Allows the sale of vehicles");
             System.out.println("------------------------------------------------------------------");
         }
@@ -115,6 +118,10 @@ public class UserInterface {
 
             case("-q"):
                 displayResult(cc.useQuery(in.substring(2).trim()));
+                break;
+
+            case("-d"):
+                displayResult(cc.useQuery("SELECT * FROM dealer"));
                 break;
 
             case("-s"):
@@ -205,6 +212,8 @@ public class UserInterface {
                     searchVehiclesHelp();
                 } else if(in.substring(0,2).equals("-e")) {
                     findMode = false;
+                } else if(in.substring(0,2).equals("-d")){
+                    displayResult(cc.useQuery("SELECT * FROM dealer"));
                 } else if(in.substring(0,4).equals("less")) {
                     String[] args = in.split(" ");
                     String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")<upper('" + args[2] + "')";
@@ -235,6 +244,7 @@ public class UserInterface {
         System.out.println("less 'attribute' 'value'            # attribute must be less than value");
         System.out.println("greater 'attribute' 'value'         # attribute must be greater than value");
         System.out.println("-a                                  # display attribute information");
+        System.out.println("-d                                  # Displays dealerships");
         System.out.println("-e                                  # Exit to main menu");
         System.out.println("-v                                  # display all vehicles");
         System.out.println("-h                                  # display this help message");
