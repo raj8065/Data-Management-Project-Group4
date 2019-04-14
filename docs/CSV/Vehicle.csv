@@ -1,4 +1,4 @@
-VIN varchar(17) not null,color varchar(20),transmission varchar(20),engine varchar(20), year varchar(4)
+VIN INT not null,color varchar(20),transmission varchar(20),engine varchar(20), year varchar(4)
 0,Red,Automatic,V8,2016
 1,Red,Automatic,V6,1998
 2,Green,Manual,V6,2019

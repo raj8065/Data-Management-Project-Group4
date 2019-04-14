@@ -75,7 +75,7 @@ public class PopulationMachine {
         // The SQL query to create the vehicle table
         String createVehicle =
             "create table if not exists vehicle(" +
-            "VIN varchar(17) not null," +
+            "VIN INT not null," +
             "color varchar(20)," +
             "transmission varchar(20)," +
             "engine varchar(20)," +
@@ -90,7 +90,7 @@ public class PopulationMachine {
         // The SQL query to create the sale table
         String createSale =
             "create table if not exists sale(" +
-            "VIN varchar(17) not null," +
+            "VIN INT not null," +
             "CID numeric(5) not null," +
             "DID numeric(5) not null," +
             "cost numeric(8)," +
@@ -118,7 +118,7 @@ public class PopulationMachine {
         String createCustomerOwns =
             "create table if not exists customerOwns(" +
             "CID numeric(5) not null," +
-            "VIN varchar(17) not null," +
+            "VIN INT not null," +
             "primary key (CID,VIN)," +
             "foreign key (CID) references customer(CID)," +
             "foreign key (VIN) references vehicle(VIN))";
@@ -134,7 +134,7 @@ public class PopulationMachine {
         String createDealerOwns =
             "create table if not exists dealerOwns(" +
             "DID numeric(5) not null," +
-            "VIN varchar(17) not null," +
+            "VIN INT not null," +
             "primary key (DID,VIN)," +
             "foreign key (DID) references dealer(DID)," +
             "foreign key (VIN) references vehicle(VIN))";
@@ -148,7 +148,7 @@ public class PopulationMachine {
         // The SQL query to create the vehicleBodyStyle table
         String createVehicleBodyStyle =
             "create table if not exists vehicleBodyStyle(" +
-            "VIN varchar(17) not null," +
+            "VIN INT not null," +
             "BodyStyle varchar(20) not null," +
             "primary key (VIN)," +
             "foreign key (VIN) references vehicle(VIN)," +
@@ -156,7 +156,7 @@ public class PopulationMachine {
         // The SQL query to create the vehicleModel table
         String createVehicleModel =
             "create table if not exists vehicleModel(" +
-            "VIN varchar(17) not null," +
+            "VIN INT not null," +
             "ModelName varchar(20) not null," +
             "primary key (VIN)," +
             "foreign key (ModelName) references brandModels(ModelName))";
@@ -164,7 +164,7 @@ public class PopulationMachine {
         // The SQL query to create the Vehicle View
         String createFullVehicle =
                 "create or replace view fullVehicle as " +
-                "SELECT a.VIN, c.ModelName, b.BodyStyle, a.color, a.transmission, a.engine " +
+                "SELECT a.VIN, a.year, c.ModelName, b.BodyStyle, a.color, a.transmission, a.engine " +
                 "FROM vehicle a INNER JOIN vehicleBodyStyle b on a.VIN=b.VIN " +
                 "INNER JOIN vehicleModel c on a.VIN=c.VIN";
 
@@ -249,6 +249,8 @@ public class PopulationMachine {
     }
 
     private static void grantPermissions(String name, String table, String permission) {
+        if(name.equals("SystemAdmin"))
+            sendCommand("GRANT ALTER ANY SCHEMA TO SystemAdmin");
         if(permission.toUpperCase().equals("ALL") && table == null)
             sendCommand("GRANT " + permission + " TO " + name);
         else
@@ -348,7 +350,8 @@ public class PopulationMachine {
         grantPermissions("Dealer", "DealerCanSell", "SELECT");
         grantPermissions("Dealer", "DealerOwns", "ALL");
         grantPermissions("Dealer", "fullVehicle", "ALL");
-
+        grantPermissions("Dealer", "modelBodyStyle", "SELECT");
+        grantPermissions("Dealer", "brandModels", "SELECT");
 
         createRole("Salesman");
         grantPermissions("Salesman","Customer", "SELECT");

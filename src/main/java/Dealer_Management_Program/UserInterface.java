@@ -32,10 +32,11 @@ public class UserInterface {
             System.out.println("------------------------------------------------------------");
 
             user = getUserName(cc.useQuery("SELECT CURRENT_USER()"));
+            //System.out.println(user);
 
             inUse = true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println("------------------------------------------------------------");
             System.out.println("Username or Password incorrect, exiting program.");
         }
@@ -68,6 +69,16 @@ public class UserInterface {
             System.out.println("-h                                #Displays the help message");
             System.out.println("------------------------------------------------------------");
 
+        } else if(user.equals("SYSADUSER") || user.equals("DLRUSER")){
+            System.out.println("Commands");
+            System.out.println("------------------------------------------------------------------");
+            System.out.println("-h                                                      #Displays the help message");
+            System.out.println("-e                                                      #Exits the program");
+            System.out.println("-c [SQL Command]                                        #Allows direct SQL Command");
+            System.out.println("-q [SQL Query]                                          #Allows direct SQL Query");
+            System.out.println("-s '[VIN]' '[Dealer Name]' '[Customer Name]' '[Cost]'   #Allows the sale of vehicles");
+            System.out.println("-n 'number'                                             #Create 'number' vehicles from the factory");
+            System.out.println("------------------------------------------------------------------");
         } else {
             System.out.println("Commands");
             System.out.println("------------------------------------------------------------------");
@@ -108,11 +119,24 @@ public class UserInterface {
 
             case("-s"):
                 String[] temp = in.split("(' '*)|('* ')|('$)");
-                cc.makeSale(temp[1],temp[2].replaceAll("'","''"),temp[3],temp[4]);
+                try {
+                    cc.makeSale(temp[1],temp[2].replaceAll("'","''"),temp[3],temp[4]);
+                } catch (Exception e) {
+                    System.out.println("Unknown input, use -h for help and information.");
+                }
                 break;
 
             case("-f"):
                 searchVehicles();
+                break;
+
+            case("-n"):
+                try {
+                    int num = VehicleFactory.newRandomVehicles(cc, Integer.parseInt(in.split(" ")[1]));
+                    System.out.println(num + " Vehicles were successfully added");
+                } catch (NumberFormatException e) {
+                    System.out.println("Unknown input, use -h for help and information.");
+                }
                 break;
 
             default:
