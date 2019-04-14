@@ -1,5 +1,7 @@
 package Dealer_Management_Program;
 
+import com.sun.org.apache.xpath.internal.operations.And;
+
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -190,6 +192,8 @@ public class UserInterface {
     }
 
     private static void searchVehicles(){
+        String query = "SELECT * FROM fullvehicle ";
+        int numWheres = 0;
         searchVehiclesHelp();
         boolean findMode = true;
         while(findMode){
@@ -212,20 +216,47 @@ public class UserInterface {
                     searchVehiclesHelp();
                 } else if(in.substring(0,2).equals("-e")) {
                     findMode = false;
+
+                } else if(in.substring(0,2).equals("-q")) {
+                    displayResult(cc.useQuery(query));
+                } else if(in.substring(0,2).equals("-r")) {
+                    query = "SELECT * FROM fullvehicle ";
+                    numWheres = 0;
                 } else if(in.substring(0,2).equals("-d")){
                     displayResult(cc.useQuery("SELECT * FROM dealer"));
                 } else if(in.substring(0,4).equals("less")) {
                     String[] args = in.split(" ");
-                    String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")<upper('" + args[2] + "')";
-                    displayResult(cc.useQuery(q));
+                    numWheres++;
+                    //String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")<upper('" + args[2] + "')";
+                    if (numWheres > 1)
+                        query += "AND ";
+                    else
+                        query += "WHERE ";
+                    query += "upper(" + args[1] + ")<upper('" + args[2] + "') ";
+                    System.out.println("Condition set. Use -q to send the query");
+                    //displayResult(cc.useQuery(q));
                 } else if(in.substring(0,5).equals("equal")) {
                     String[] args = in.split(" ");
-                    String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")=upper('" + args[2] + "')";
-                    displayResult(cc.useQuery(q));
+                    numWheres++;
+                    //String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")=upper('" + args[2] + "')";
+                    if (numWheres > 1)
+                        query += "AND ";
+                    else
+                        query += "WHERE ";
+                    query += "upper(" + args[1] + ")=upper('" + args[2] + "') ";
+                    System.out.println("Condition set. Use -q to send the query");
+                    //displayResult(cc.useQuery(q));
                 } else if(in.substring(0,7).equals("greater")) {
                     String[] args = in.split(" ");
-                    String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")>upper('" + args[2] + "')";
-                    displayResult(cc.useQuery(q));
+                    numWheres++;
+                    //String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")>upper('" + args[2] + "')";
+                    if (numWheres > 1)
+                        query += "AND ";
+                    else
+                        query += "WHERE ";
+                    query +="upper(" + args[1] + ")>upper('" + args[2] + "') ";
+                    //displayResult(cc.useQuery(q));
+                    System.out.println("Condition set. Use -q to send the query");
                 } else {
                     System.out.println("Incorrect Input, Try Again. -a to list attribute info");
                 }
@@ -248,6 +279,8 @@ public class UserInterface {
         System.out.println("-e                                  # Exit to main menu");
         System.out.println("-v                                  # display all vehicles");
         System.out.println("-h                                  # display this help message");
+        System.out.println("-q                                  # send query with all of the conditions");
+        System.out.println("-r                                  # remove all conditions");
         System.out.println("---------------------------------------------------------------------------");
     }
 
