@@ -347,6 +347,7 @@ public class PopulationMachine {
         grantPermissions("Dealer", "Dealer", "SELECT");
         grantPermissions("Dealer", "DealerCanSell", "SELECT");
         grantPermissions("Dealer", "DealerOwns", "ALL");
+        grantPermissions("Dealer", "fullVehicle", "ALL");
 
 
         createRole("Salesman");
@@ -360,9 +361,11 @@ public class PopulationMachine {
         grantPermissions("Salesman", "Dealer", "SELECT");
         grantPermissions("Salesman", "DealerCanSell", "SELECT");
         grantPermissions("Salesman", "DealerOwns", "SELECT");
+        grantPermissions("Salesman", "fullVehicle", "SELECT");
 
         createRole("SystemAdmin");
         grantPermissions("SystemAdmin", null, "ALL");
+        grantPermissions("SystemAdmin", "fullVehicle", "ALL");
 
         createUser("SalesUser", "SalesPass");
         createUser("SysAdUser", "SysAdPass");

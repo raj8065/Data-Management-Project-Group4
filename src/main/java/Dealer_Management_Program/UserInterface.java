@@ -1,6 +1,7 @@
 package Dealer_Management_Program;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -39,9 +40,12 @@ public class UserInterface {
             System.out.println("Username or Password incorrect, exiting program.");
         }
 
-
-        while(inUse)
-            processInput(scanner.nextLine());
+        if(user.equals("CUSTOMERUSER")){
+            searchVehicles();
+        } else {
+            while (inUse)
+                processInput(scanner.nextLine());
+        }
 
         System.out.println("------------------------------------------------------------");
         System.out.println("Thank you for using the Dealership information system!");
@@ -146,29 +150,40 @@ public class UserInterface {
     }
 
     private static void searchVehicles(){
-        System.out.println("---------------------You are now in Vehicle Search Mode--------------------");
-        System.out.println("Available Commands:");
-        System.out.println("equal 'attribute' 'value'           # attribute must equal value");
-        System.out.println("less 'attribute' 'value'            # attribute must be less than value");
-        System.out.println("greater 'attribute' 'value'         # attribute must be greater than value");
-        System.out.println("-a                                  # display attribute information");
-        System.out.println("-e                                  # Exit to main menu");
-        System.out.println("---------------------------------------------------------------------------");
+        searchVehiclesHelp();
         boolean findMode = true;
         while(findMode){
             String in = scanner.nextLine();
             try{
                 if(in.substring(0,2).equals("-a")){ // display attribute information
                     // for now just list all
-                    displayResult(cc.useQuery("SELECT * FROM fullVehicle"));
+                    ResultSet result = cc.useQuery("SELECT * FROM fullVehicle");
+                    ResultSetMetaData meta = result.getMetaData();
+                    int col = meta.getColumnCount();
+                    System.out.println("-----------------------------------------");
+                    System.out.println("Attribute-Name\tType");
+                    for(int i = 1; i <= col; i++){
+                        System.out.printf("%-15s %s\n", meta.getColumnName(i), meta.getColumnTypeName(i));
+                    }
+                    System.out.println("-----------------------------------------");
+                } else if (in.substring(0,2).equals("-v")) {
+                    displayResult(cc.useQuery("SELECT * FROM fullvehicle"));
+                } else if (in.substring(0,2).equals("-h")) {
+                    searchVehiclesHelp();
                 } else if(in.substring(0,2).equals("-e")) {
                     findMode = false;
                 } else if(in.substring(0,4).equals("less")) {
-                    System.out.println("less than not implemented yet");
+                    String[] args = in.split(" ");
+                    String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")<upper('" + args[2] + "')";
+                    displayResult(cc.useQuery(q));
                 } else if(in.substring(0,5).equals("equal")) {
-                    System.out.println("equal not implemented yet");
+                    String[] args = in.split(" ");
+                    String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")=upper('" + args[2] + "')";
+                    displayResult(cc.useQuery(q));
                 } else if(in.substring(0,7).equals("greater")) {
-                    System.out.println("greater than not implemented yet");
+                    String[] args = in.split(" ");
+                    String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")>upper('" + args[2] + "')";
+                    displayResult(cc.useQuery(q));
                 } else {
                     System.out.println("Incorrect Input, Try Again. -a to list attribute info");
                 }
@@ -177,8 +192,22 @@ public class UserInterface {
             }
         }
         System.out.println("Returning To Main Menu");
-        displayHelp();
+        //displayHelp();
     }
+
+    public static void searchVehiclesHelp(){
+        System.out.println("---------------------You are now in Vehicle Search Mode--------------------");
+        System.out.println("Available Commands:");
+        System.out.println("equal 'attribute' 'value'           # attribute must equal value");
+        System.out.println("less 'attribute' 'value'            # attribute must be less than value");
+        System.out.println("greater 'attribute' 'value'         # attribute must be greater than value");
+        System.out.println("-a                                  # display attribute information");
+        System.out.println("-e                                  # Exit to main menu");
+        System.out.println("-v                                  # display all vehicles");
+        System.out.println("-h                                  # display this help message");
+        System.out.println("---------------------------------------------------------------------------");
+    }
+
 
 
     private static String getUserName(ResultSet result) {

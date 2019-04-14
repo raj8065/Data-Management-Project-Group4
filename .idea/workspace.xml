@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a86eb236-fac0-41ff-b3c2-4423405e5475" name="Default Changelist" comment="added search mode for customers">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/CSV/VehicleModel.csv" beforeDir="false" afterPath="$PROJECT_DIR$/docs/CSV/VehicleModel.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Dealer_Management_Program/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dealer_Management_Program/UserInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Util/PopulationMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Util/PopulationMachine.java" afterDir="false" />
     </list>
@@ -26,8 +25,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Util/PopulationMachine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="154" column="56" lean-forward="true" selection-start-line="154" selection-start-column="56" selection-end-line="154" selection-end-column="56" />
+            <state relative-caret-position="547">
+              <caret line="375" column="46" lean-forward="true" selection-start-line="375" selection-start-column="46" selection-end-line="375" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#9831#9832#0" expanded="true" />
+                <element signature="e#9899#9900#0" expanded="true" />
+                <element signature="e#10284#10285#0" expanded="true" />
+                <element signature="e#10344#10345#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -54,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Dealer_Management_Program/UserInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="159" column="44" lean-forward="true" selection-start-line="159" selection-start-column="44" selection-end-line="159" selection-end-column="44" />
+            <state relative-caret-position="300">
+              <caret line="43" column="12" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -234,7 +240,7 @@
     <frame x="12" y="31" width="1896" height="1054" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15243243" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15405406" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -324,9 +330,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/CSV/Vehicle.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/CSV/VehicleBodyStyle.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -337,17 +340,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/docs/CSV/Vehicle.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Util/PopulationMachine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="154" column="56" lean-forward="true" selection-start-line="154" selection-start-column="56" selection-end-line="154" selection-end-column="56" />
+        <state relative-caret-position="547">
+          <caret line="375" column="46" lean-forward="true" selection-start-line="375" selection-start-column="46" selection-end-line="375" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#9831#9832#0" expanded="true" />
+            <element signature="e#9899#9900#0" expanded="true" />
+            <element signature="e#10284#10285#0" expanded="true" />
+            <element signature="e#10344#10345#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Dealer_Management_Program/UserInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="159" column="44" lean-forward="true" selection-start-line="159" selection-start-column="44" selection-end-line="159" selection-end-column="44" />
+        <state relative-caret-position="300">
+          <caret line="43" column="12" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
