@@ -75,7 +75,7 @@ public class PopulationMachine {
         // The SQL query to create the vehicle table
         String createVehicle =
             "create table if not exists vehicle(" +
-            "VIN INT not null," +
+            "VIN numeric(17) not null," +
             "color varchar(20)," +
             "transmission varchar(20)," +
             "engine varchar(20)," +
@@ -90,7 +90,7 @@ public class PopulationMachine {
         // The SQL query to create the sale table
         String createSale =
             "create table if not exists sale(" +
-            "VIN INT not null," +
+            "VIN numeric(17) not null," +
             "CID numeric(5) not null," +
             "DID numeric(5) not null," +
             "cost numeric(8)," +
@@ -113,12 +113,12 @@ public class PopulationMachine {
             "create table if not exists brandModels(" +
             "BrandName varchar(20) not null," +
             "ModelName varchar(20) not null," +
-            "primary key (BrandName,ModelName))";
+            "primary key (BrandName, ModelName))";
         // The SQL query to create the customerOwns table
         String createCustomerOwns =
             "create table if not exists customerOwns(" +
             "CID numeric(5) not null," +
-            "VIN INT not null," +
+            "VIN numeric(17) not null," +
             "primary key (CID,VIN)," +
             "foreign key (CID) references customer(CID)," +
             "foreign key (VIN) references vehicle(VIN))";
@@ -128,13 +128,12 @@ public class PopulationMachine {
             "DID numeric(5) not null," +
             "BrandName varchar(20) not null," +
             "primary key (DID,BrandName)," +
-            "foreign key (DID) references dealer(DID)," +
-            "foreign key (BrandName) references brandModels(BrandName))";
+            "foreign key (DID) references dealer(DID))";
         // The SQL query to create the dealerOwns table
         String createDealerOwns =
             "create table if not exists dealerOwns(" +
             "DID numeric(5) not null," +
-            "VIN INT not null," +
+            "VIN numeric(17) not null," +
             "primary key (DID,VIN)," +
             "foreign key (DID) references dealer(DID)," +
             "foreign key (VIN) references vehicle(VIN))";
@@ -143,23 +142,20 @@ public class PopulationMachine {
             "create table if not exists modelBodyStyle(" +
             "ModelName varchar(20) not null," +
             "BodyStyle varchar(20) not null," +
-            "primary key (ModelName, BodyStyle)," +
-            "foreign key (ModelName) references brandModels(ModelName))";
+            "primary key (ModelName, BodyStyle))";
         // The SQL query to create the vehicleBodyStyle table
         String createVehicleBodyStyle =
             "create table if not exists vehicleBodyStyle(" +
-            "VIN INT not null," +
+            "VIN numeric(17) not null," +
             "BodyStyle varchar(20) not null," +
             "primary key (VIN)," +
-            "foreign key (VIN) references vehicle(VIN)," +
-            "foreign key (BodyStyle) references modelBodyStyle(BodyStyle))";
+            "foreign key (VIN) references vehicle(VIN))";
         // The SQL query to create the vehicleModel table
         String createVehicleModel =
             "create table if not exists vehicleModel(" +
-            "VIN INT not null," +
+            "VIN numeric(17) not null," +
             "ModelName varchar(20) not null," +
-            "primary key (VIN)," +
-            "foreign key (ModelName) references brandModels(ModelName))";
+            "primary key (VIN))";
 
         // The SQL query to create the Vehicle View
         String createFullVehicle =
@@ -289,6 +285,7 @@ public class PopulationMachine {
             Statement stmt = conn.createStatement();
             stmt.execute(command);
         } catch (JdbcSQLIntegrityConstraintViolationException e2) {
+            e2.printStackTrace();
         } catch (SQLException e ) {
             e.printStackTrace();
         }
