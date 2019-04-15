@@ -113,7 +113,7 @@ public class PopulationMachine {
             "create table if not exists brandModels(" +
             "BrandName varchar(20) not null," +
             "ModelName varchar(20) not null," +
-            "primary key (BrandName,ModelName))";
+            "unique key (BrandName,ModelName))";
         // The SQL query to create the customerOwns table
         String createCustomerOwns =
             "create table if not exists customerOwns(" +
