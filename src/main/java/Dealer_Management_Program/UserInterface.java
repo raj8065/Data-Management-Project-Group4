@@ -216,7 +216,6 @@ public class UserInterface {
                     searchVehiclesHelp();
                 } else if(in.substring(0,2).equals("-e")) {
                     findMode = false;
-
                 } else if(in.substring(0,2).equals("-q")) {
                     displayResult(cc.useQuery(query));
                 } else if(in.substring(0,2).equals("-r")) {
@@ -227,35 +226,29 @@ public class UserInterface {
                 } else if(in.substring(0,4).equals("less")) {
                     String[] args = in.split(" ");
                     numWheres++;
-                    //String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")<upper('" + args[2] + "')";
                     if (numWheres > 1)
                         query += "AND ";
                     else
                         query += "WHERE ";
                     query += "upper(" + args[1] + ")<upper('" + args[2] + "') ";
                     System.out.println("Condition set. Use -q to send the query");
-                    //displayResult(cc.useQuery(q));
                 } else if(in.substring(0,5).equals("equal")) {
                     String[] args = in.split(" ");
                     numWheres++;
-                    //String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")=upper('" + args[2] + "')";
                     if (numWheres > 1)
                         query += "AND ";
                     else
                         query += "WHERE ";
                     query += "upper(" + args[1] + ")=upper('" + args[2] + "') ";
                     System.out.println("Condition set. Use -q to send the query");
-                    //displayResult(cc.useQuery(q));
                 } else if(in.substring(0,7).equals("greater")) {
                     String[] args = in.split(" ");
                     numWheres++;
-                    //String q = "SELECT * FROM fullvehicle WHERE upper(" + args[1] + ")>upper('" + args[2] + "')";
                     if (numWheres > 1)
                         query += "AND ";
                     else
                         query += "WHERE ";
                     query +="upper(" + args[1] + ")>upper('" + args[2] + "') ";
-                    //displayResult(cc.useQuery(q));
                     System.out.println("Condition set. Use -q to send the query");
                 } else {
                     System.out.println("Incorrect Input, Try Again. -a to list attribute info");
