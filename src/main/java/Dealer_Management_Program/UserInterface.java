@@ -1,6 +1,9 @@
 package Dealer_Management_Program;
 
+import com.sun.org.apache.xpath.internal.operations.And;
+
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -31,17 +34,21 @@ public class UserInterface {
             System.out.println("------------------------------------------------------------");
 
             user = getUserName(cc.useQuery("SELECT CURRENT_USER()"));
+            //System.out.println(user);
 
             inUse = true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println("------------------------------------------------------------");
             System.out.println("Username or Password incorrect, exiting program.");
         }
 
-
-        while(inUse)
-            processInput(scanner.nextLine());
+        if(user.equals("CUSTOMERUSER")){
+            searchVehicles();
+        } else {
+            while (inUse)
+                processInput(scanner.nextLine());
+        }
 
         System.out.println("------------------------------------------------------------");
         System.out.println("Thank you for using the Dealership information system!");
@@ -62,8 +69,22 @@ public class UserInterface {
             System.out.println("-f                                #Enter Search Mode");
             System.out.println("-e                                #Exits the program");
             System.out.println("-h                                #Displays the help message");
+            System.out.println("-d                                #Displays dealerships");
             System.out.println("------------------------------------------------------------");
 
+        } else if(user.equals("SYSADUSER") || user.equals("DLRUSER")){
+            System.out.println("Commands");
+            System.out.println("------------------------------------------------------------------");
+            System.out.println("-h                                                      #Displays the help message");
+            System.out.println("-e                                                      #Exits the program");
+            System.out.println("-c [SQL Command]                                        #Allows direct SQL Command");
+            System.out.println("-q [SQL Query]                                          #Allows direct SQL Query");
+            System.out.println("-f                                                      #Enter Search Mode");
+            System.out.println("-d                                                      #Displays dealerships");
+            System.out.println("-t <table>                                              #Displays the given table");
+            System.out.println("-s '[VIN]' '[Dealer Name]' '[Customer Name]' '[Cost]'   #Allows the sale of vehicles");
+            System.out.println("-n 'number' '[Dealer ID]'                               #Create 'number' vehicles from the factory");
+            System.out.println("------------------------------------------------------------------");
         } else {
             System.out.println("Commands");
             System.out.println("------------------------------------------------------------------");
@@ -71,6 +92,9 @@ public class UserInterface {
             System.out.println("-e                                                      #Exits the program");
             System.out.println("-c [SQL Command]                                        #Allows direct SQL Command");
             System.out.println("-q [SQL Query]                                          #Allows direct SQL Query");
+            System.out.println("-f                                                      #Enter Search Mode");
+            System.out.println("-d                                                      #Displays dealerships");
+            System.out.println("-t <table>                                              #Displays the given table");
             System.out.println("-s '[VIN]' '[Dealer Name]' '[Customer Name]' '[Cost]'   #Allows the sale of vehicles");
             System.out.println("------------------------------------------------------------------");
         }
@@ -102,13 +126,48 @@ public class UserInterface {
                 displayResult(cc.useQuery(in.substring(2).trim()));
                 break;
 
+            case("-d"):
+                displayResult(cc.useQuery("SELECT * FROM dealer"));
+                break;
+
             case("-s"):
                 String[] temp = in.split("(' '*)|('* ')|('$)");
-                cc.makeSale(temp[1],temp[2].replaceAll("'","''"),temp[3],temp[4]);
+                try {
+                    cc.makeSale(temp[1],temp[2].replaceAll("'","''"),temp[3],temp[4]);
+                } catch (Exception e) {
+                    System.out.println("Unknown input, use -h for help and information.");
+                }
+                break;
+
+            case("-t"):
+                try {
+                    String table = in.split(" ")[1];
+                    displayResult(cc.useQuery("SELECT * FROM " + table));
+                } catch (Exception e) {
+                    System.out.println("Unknown input, use -h for help and information.");
+                }
                 break;
 
             case("-f"):
                 searchVehicles();
+                break;
+
+            case("-n"):
+                try {
+                    String[] arg = in.split(" ");
+                    int num = 0;
+                    if(arg.length <= 1){
+                        System.out.println("Unknown input, use -h for help and information.");
+                        break;
+                    } else if (arg.length == 2) {
+                        num = VehicleFactory.newRandomVehicles(cc, Integer.parseInt(arg[1]));
+                    } else {
+                        num = VehicleFactory.newRandomVehicles(cc, Integer.parseInt(arg[1]), Integer.parseInt(arg[2]));
+                    }
+                    System.out.println(num + " Vehicles were successfully added");
+                } catch (NumberFormatException e) {
+                    System.out.println("Unknown input, use -h for help and information.");
+                }
                 break;
 
             default:
@@ -146,29 +205,64 @@ public class UserInterface {
     }
 
     private static void searchVehicles(){
-        System.out.println("---------------------You are now in Vehicle Search Mode--------------------");
-        System.out.println("Available Commands:");
-        System.out.println("equal 'attribute' 'value'           # attribute must equal value");
-        System.out.println("less 'attribute' 'value'            # attribute must be less than value");
-        System.out.println("greater 'attribute' 'value'         # attribute must be greater than value");
-        System.out.println("-a                                  # display attribute information");
-        System.out.println("-e                                  # Exit to main menu");
-        System.out.println("---------------------------------------------------------------------------");
+        String query = "SELECT * FROM fullvehicle ";
+        int numWheres = 0;
+        searchVehiclesHelp();
         boolean findMode = true;
         while(findMode){
             String in = scanner.nextLine();
             try{
                 if(in.substring(0,2).equals("-a")){ // display attribute information
                     // for now just list all
-                    displayResult(cc.useQuery("SELECT * FROM fullVehicle"));
+                    ResultSet result = cc.useQuery("SELECT * FROM fullVehicle");
+                    ResultSetMetaData meta = result.getMetaData();
+                    int col = meta.getColumnCount();
+                    System.out.println("-----------------------------------------");
+                    System.out.println("Attribute-Name\tType");
+                    for(int i = 1; i <= col; i++){
+                        System.out.printf("%-15s %s\n", meta.getColumnName(i), meta.getColumnTypeName(i));
+                    }
+                    System.out.println("-----------------------------------------");
+                } else if (in.substring(0,2).equals("-v")) {
+                    displayResult(cc.useQuery("SELECT * FROM fullvehicle"));
+                } else if (in.substring(0,2).equals("-h")) {
+                    searchVehiclesHelp();
                 } else if(in.substring(0,2).equals("-e")) {
                     findMode = false;
+                } else if(in.substring(0,2).equals("-q")) {
+                    displayResult(cc.useQuery(query));
+                } else if(in.substring(0,2).equals("-r")) {
+                    query = "SELECT * FROM fullvehicle ";
+                    numWheres = 0;
+                } else if(in.substring(0,2).equals("-d")){
+                    displayResult(cc.useQuery("SELECT * FROM dealer"));
                 } else if(in.substring(0,4).equals("less")) {
-                    System.out.println("less than not implemented yet");
+                    String[] args = in.split(" ");
+                    numWheres++;
+                    if (numWheres > 1)
+                        query += "AND ";
+                    else
+                        query += "WHERE ";
+                    query += "upper(" + args[1] + ")<upper('" + args[2] + "') ";
+                    System.out.println("Condition set. Use -q to send the query");
                 } else if(in.substring(0,5).equals("equal")) {
-                    System.out.println("equal not implemented yet");
+                    String[] args = in.split(" ");
+                    numWheres++;
+                    if (numWheres > 1)
+                        query += "AND ";
+                    else
+                        query += "WHERE ";
+                    query += "upper(" + args[1] + ")=upper('" + args[2] + "') ";
+                    System.out.println("Condition set. Use -q to send the query");
                 } else if(in.substring(0,7).equals("greater")) {
-                    System.out.println("greater than not implemented yet");
+                    String[] args = in.split(" ");
+                    numWheres++;
+                    if (numWheres > 1)
+                        query += "AND ";
+                    else
+                        query += "WHERE ";
+                    query +="upper(" + args[1] + ")>upper('" + args[2] + "') ";
+                    System.out.println("Condition set. Use -q to send the query");
                 } else {
                     System.out.println("Incorrect Input, Try Again. -a to list attribute info");
                 }
@@ -177,8 +271,25 @@ public class UserInterface {
             }
         }
         System.out.println("Returning To Main Menu");
-        displayHelp();
+        //displayHelp();
     }
+
+    public static void searchVehiclesHelp(){
+        System.out.println("---------------------You are now in Vehicle Search Mode--------------------");
+        System.out.println("Available Commands:");
+        System.out.println("equal 'attribute' 'value'           # attribute must equal value");
+        System.out.println("less 'attribute' 'value'            # attribute must be less than value");
+        System.out.println("greater 'attribute' 'value'         # attribute must be greater than value");
+        System.out.println("-a                                  # display attribute information");
+        System.out.println("-d                                  # Displays dealerships");
+        System.out.println("-e                                  # Exit to main menu");
+        System.out.println("-v                                  # display all vehicles");
+        System.out.println("-h                                  # display this help message");
+        System.out.println("-q                                  # send query with all of the conditions");
+        System.out.println("-r                                  # remove all conditions");
+        System.out.println("---------------------------------------------------------------------------");
+    }
+
 
 
     private static String getUserName(ResultSet result) {

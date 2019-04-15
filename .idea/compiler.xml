@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Data-Management-Project-Group4" />
         <module name="DataManagementProjectGroup4" />
+        <module name="DataManagementProjectv2" />
       </profile>
     </annotationProcessing>
   </component>
