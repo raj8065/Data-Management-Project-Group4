@@ -9,3 +9,28 @@ CID numeric(5) not null,name varchar(20) not null,streetNum varchar(20),streetNa
 18,Antonia Pradeep,9,Cedar Swamp St.,Mchenry,IL,60050,F,70048
 19,Antipatros Kevin,10,Mayflower St.,Paramus,NJ ,07652,M,87925
 20,Golda Stone,11,North Ramblewood St.,Saint Johns,FL ,32259,F,65530
+21,Shelia Nash,50,Big Rock Cove Street,Barberton,OH,44203,F,75432
+22,Rachael Fuller,7659,Coffee St.,Tiffin,OH,44883,F,23458
+23,Lonnie Duncan,8325,Cherry Hill Drive,Durham,NC,27703,M,45675
+24,Patrick Joseph,9930,Cleveland St.,Champaign,IL,61821,M,65478
+25,Tyler Black,8181,Magnolia Street,Maspeth,NY,11378,M,45432
+26,Megan Stephens,934,Eagle Rd.,Fargo,ND,58102,F,93547
+27,Dixie Kennedy,408,Pennington Lane,West Haven,CT,6516,F,34567
+28,Bruce Simmons,2,Indian Spring Court,Hattiesburg,MS,39401,M,87654
+29,Amos Huff,558,West Race Ave.,Schenectady,NY,12302,M,76543
+30,Fernando Hanson,14,East Saxton Court,Eastpointe,MI,48021,M,35682
+31,Lyle Harrison,7765,Court Street,Traverse City,MI,49684,M,23577
+32,Elias Chavez,7309,Fairfield Court,Doylestown,PA,18901,M,65431
+33,Roosevelt Roberson,47,Schoolhouse Rd.,Hagerstown,MD,21740,M,43457
+34,Joshua Romero,9041,Plumb Branch Drive,Parkersburg,WV,26101,M,87654
+35,Fredrick Phillips,111,Pine Ave.,Ladson,SC,29456,M,65437
+36,Walter Walton,997,S. Pineknoll St.,Westminster,MD,21157,M,65423
+37,Bill Underwood,9,Cottage St.,Beachwood,OH,44122,M,87635
+38,Tracey Coleman,998,Birchwood Lane,Chippewa Falls,WI,54729,F,98345
+39,Jenny Simpson,9317,Grandrose Rd.,Helotes,TX,78023,F,87634
+40,Malcolm Rodriguez,577,Glenridge Drive,Asheboro,NC,27205,M,65478
+41,Jeannette Robertson,76,John Ave.,Plainfield,NJ,7060,F,34567
+42,Billy Harris,159,Richardson Rd.,Scarsdale,NY,10583,M,76547
+43,Bradford Sharp,373,Saxton Road,Richmond,VA,23223,M,65478
+44,Kurt Watts,828,E. Union Ave.,Evans,GA,30809,M,34568
+45,Ricky Ramos,2,South Third Avenue,Sulphur,LA,70663,M,86547
