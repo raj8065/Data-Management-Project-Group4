@@ -368,7 +368,6 @@ public class PopulationMachine {
 
         createRole("SystemAdmin");
         grantPermissions("SystemAdmin", null, "ALL");
-        grantPermissions("SystemAdmin", "fullVehicle", "ALL");
 
         createUser("SalesUser", "SalesPass");
         createUser("SysAdUser", "SysAdPass");
