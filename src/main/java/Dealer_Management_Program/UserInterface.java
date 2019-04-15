@@ -79,7 +79,9 @@ public class UserInterface {
             System.out.println("-e                                                      #Exits the program");
             System.out.println("-c [SQL Command]                                        #Allows direct SQL Command");
             System.out.println("-q [SQL Query]                                          #Allows direct SQL Query");
+            System.out.println("-f                                                      #Enter Search Mode");
             System.out.println("-d                                                      #Displays dealerships");
+            System.out.println("-t <table>                                              #Displays the given table");
             System.out.println("-s '[VIN]' '[Dealer Name]' '[Customer Name]' '[Cost]'   #Allows the sale of vehicles");
             System.out.println("-n 'number' '[Dealer ID]'                               #Create 'number' vehicles from the factory");
             System.out.println("------------------------------------------------------------------");
@@ -90,7 +92,9 @@ public class UserInterface {
             System.out.println("-e                                                      #Exits the program");
             System.out.println("-c [SQL Command]                                        #Allows direct SQL Command");
             System.out.println("-q [SQL Query]                                          #Allows direct SQL Query");
+            System.out.println("-f                                                      #Enter Search Mode");
             System.out.println("-d                                                      #Displays dealerships");
+            System.out.println("-t <table>                                              #Displays the given table");
             System.out.println("-s '[VIN]' '[Dealer Name]' '[Customer Name]' '[Cost]'   #Allows the sale of vehicles");
             System.out.println("------------------------------------------------------------------");
         }
@@ -130,6 +134,15 @@ public class UserInterface {
                 String[] temp = in.split("(' '*)|('* ')|('$)");
                 try {
                     cc.makeSale(temp[1],temp[2].replaceAll("'","''"),temp[3],temp[4]);
+                } catch (Exception e) {
+                    System.out.println("Unknown input, use -h for help and information.");
+                }
+                break;
+
+            case("-t"):
+                try {
+                    String table = in.split(" ")[1];
+                    displayResult(cc.useQuery("SELECT * FROM " + table));
                 } catch (Exception e) {
                     System.out.println("Unknown input, use -h for help and information.");
                 }
