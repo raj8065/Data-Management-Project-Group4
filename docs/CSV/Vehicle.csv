@@ -15,3 +15,303 @@ VIN INT not null,color varchar(20),transmission varchar(20),engine varchar(20), 
 13,Blue,Automatic,V6,2014
 14,Gray,Automatic,V8,2018
 15,Black,Automatic,V6,2016
+16,Black,Manual,V8,2019
+17,White,Manual,I4 Diesel,2006
+18,Brown,Manual,V8,2013
+19,Yellow,Automatic,I4 Diesel,2019
+20,Brown,Automatic,I4,2011
+21,Red,Automatic,I4,2011
+22,Blue,Automatic,V8,2011
+23,White,Automatic,I4 Diesel,2013
+24,Black,Manual,I4 Diesel,2019
+25,Green,Automatic,V6,2012
+26,Red,Manual,I4,2009
+27,Green,Manual,I4 Diesel,2009
+28,Yellow,Automatic,V8,2004
+29,Brown,Automatic,I4 Diesel,2007
+30,Black,Automatic,I4 Diesel,2014
+31,Green,Manual,V6,2003
+32,Green,Automatic,V6,2018
+33,Gray,Manual,V6,2007
+34,Black,Automatic,I4 Diesel,2008
+35,Brown,Automatic,I4 Diesel,2000
+36,Green,Automatic,I4,2007
+37,White,Manual,I4,2010
+38,Yellow,Manual,V8,2000
+39,Gray,Automatic,I4 Diesel,2005
+40,Brown,Automatic,V8,2007
+41,Brown,Automatic,V8,2011
+42,Green,Manual,I4,2000
+43,Brown,Manual,V6,2018
+44,Blue,Manual,V8,2016
+45,Gray,Automatic,V8,2000
+46,Blue,Automatic,I4 Diesel,2015
+47,Blue,Manual,I4 Diesel,2000
+48,Gray,Manual,I4,2018
+49,Gray,Automatic,V6,2005
+50,Yellow,Automatic,V6,2001
+51,Green,Manual,I4 Diesel,2007
+52,Yellow,Manual,V6,2014
+53,Red,Manual,V8,2004
+54,Yellow,Manual,I4,2002
+55,Yellow,Manual,V8,2016
+56,Green,Automatic,I4 Diesel,2005
+57,Black,Automatic,I4 Diesel,2012
+58,Yellow,Manual,V8,2014
+59,Yellow,Manual,V6,2005
+60,Brown,Automatic,I4 Diesel,2018
+61,Red,Automatic,I4 Diesel,2006
+62,Red,Manual,V8,2019
+63,Green,Automatic,I4,2008
+64,Gray,Manual,I4,2001
+65,Blue,Manual,I4,2018
+66,Blue,Automatic,V6,2010
+67,Red,Automatic,I4 Diesel,2008
+68,Red,Manual,I4 Diesel,2016
+69,Yellow,Automatic,I4,2018
+70,Green,Automatic,I4,2002
+71,Gray,Automatic,I4 Diesel,2019
+72,Red,Automatic,V8,2005
+73,Red,Automatic,V8,2010
+74,Yellow,Manual,I4,2005
+75,Red,Automatic,I4 Diesel,2010
+76,Gray,Manual,I4,2011
+77,Yellow,Automatic,V8,2006
+78,Yellow,Manual,I4,2006
+79,White,Automatic,I4,2018
+80,Black,Automatic,I4,2018
+81,Green,Manual,V6,2017
+82,Brown,Manual,V6,2007
+83,White,Automatic,I4 Diesel,2003
+84,Blue,Manual,I4 Diesel,2017
+85,Red,Manual,V8,2011
+86,Brown,Manual,V8,2003
+87,Blue,Automatic,I4 Diesel,2006
+88,Yellow,Automatic,V8,2003
+89,Red,Automatic,I4,2016
+90,Red,Automatic,I4 Diesel,2010
+91,Black,Automatic,V6,2018
+92,Brown,Manual,V8,2004
+93,White,Manual,I4,2008
+94,Green,Automatic,V6,2006
+95,Brown,Manual,V6,2010
+96,Green,Automatic,I4 Diesel,2010
+97,White,Automatic,I4 Diesel,2005
+98,Gray,Manual,V8,2018
+99,Black,Automatic,I4 Diesel,2007
+100,Black,Manual,V8,2016
+101,White,Automatic,V6,2005
+102,Blue,Manual,I4,2007
+103,Red,Manual,I4 Diesel,2010
+104,White,Manual,V6,2014
+105,Gray,Manual,V6,2008
+106,Brown,Automatic,V6,2007
+107,Red,Automatic,I4,2001
+108,Gray,Automatic,V6,2011
+109,Yellow,Manual,V8,2007
+110,White,Manual,I4 Diesel,2019
+111,Blue,Manual,V6,2015
+112,Red,Automatic,V6,2013
+113,White,Manual,V6,2016
+114,Gray,Automatic,V6,2002
+115,Red,Automatic,I4 Diesel,2012
+116,White,Manual,I4,2006
+117,Brown,Automatic,I4,2015
+118,White,Manual,V6,2016
+119,White,Manual,I4 Diesel,2004
+120,White,Manual,V6,2014
+121,White,Manual,V8,2005
+122,Brown,Manual,I4 Diesel,2000
+123,Green,Manual,I4 Diesel,2014
+124,Green,Manual,I4,2013
+125,Blue,Manual,V8,2005
+126,Gray,Manual,V8,2012
+127,Brown,Automatic,V6,2011
+128,Yellow,Automatic,I4 Diesel,2011
+129,Blue,Manual,V6,2019
+130,White,Manual,V6,2011
+131,White,Automatic,V8,2003
+132,Red,Manual,I4,2019
+133,Green,Automatic,V8,2014
+134,Black,Manual,I4 Diesel,2007
+135,Red,Automatic,I4,2000
+136,Yellow,Manual,I4 Diesel,2003
+137,Brown,Automatic,I4,2008
+138,White,Automatic,V6,2017
+139,White,Automatic,I4 Diesel,2018
+140,Red,Manual,V6,2014
+141,Black,Automatic,V6,2013
+142,Yellow,Manual,V6,2001
+143,Black,Manual,V8,2009
+144,Green,Manual,V8,2019
+145,Yellow,Automatic,V8,2012
+146,Gray,Manual,V8,2012
+147,White,Manual,V8,2000
+148,Gray,Manual,I4 Diesel,2002
+149,White,Automatic,V8,2014
+150,Black,Manual,V6,2000
+151,Red,Manual,V6,2010
+152,Yellow,Manual,I4 Diesel,2018
+153,Blue,Manual,I4 Diesel,2000
+154,Brown,Manual,V8,2007
+155,Brown,Manual,I4 Diesel,2016
+156,Black,Automatic,V6,2009
+157,Black,Automatic,I4,2007
+158,Brown,Manual,I4 Diesel,2011
+159,White,Manual,V8,2008
+160,Yellow,Automatic,I4 Diesel,2006
+161,Black,Automatic,I4 Diesel,2008
+162,Black,Manual,I4,2005
+163,Yellow,Manual,V6,2018
+164,Black,Automatic,V8,2018
+165,Gray,Manual,I4 Diesel,2004
+166,Blue,Manual,V8,2009
+167,Gray,Automatic,I4 Diesel,2005
+168,Gray,Automatic,V8,2000
+169,Blue,Manual,I4,2007
+170,Blue,Automatic,I4 Diesel,2005
+171,Blue,Automatic,V6,2001
+172,Blue,Automatic,I4,2015
+173,Brown,Manual,V6,2013
+174,Red,Automatic,I4,2014
+175,Gray,Automatic,I4 Diesel,2018
+176,Green,Manual,V8,2009
+177,Yellow,Automatic,I4 Diesel,2013
+178,Blue,Automatic,I4,2003
+179,Yellow,Automatic,I4 Diesel,2008
+180,Yellow,Manual,V8,2005
+181,Gray,Manual,I4,2008
+182,Yellow,Manual,V8,2011
+183,Gray,Automatic,I4,2019
+184,Gray,Automatic,V8,2011
+185,Yellow,Automatic,I4 Diesel,2017
+186,Brown,Manual,V6,2009
+187,Gray,Automatic,V8,2006
+188,Blue,Manual,I4 Diesel,2017
+189,Brown,Manual,V8,2002
+190,Yellow,Automatic,V8,2013
+191,Black,Automatic,I4 Diesel,2018
+192,White,Manual,V8,2018
+193,Gray,Automatic,I4 Diesel,2002
+194,Black,Automatic,V6,2013
+195,Yellow,Automatic,I4,2013
+196,Gray,Manual,I4,2000
+197,White,Manual,I4 Diesel,2011
+198,White,Manual,V8,2000
+199,White,Manual,I4 Diesel,2002
+200,Red,Automatic,V8,2012
+201,Green,Automatic,I4,2002
+202,White,Automatic,I4,2001
+203,Black,Manual,I4,2012
+204,Yellow,Manual,V6,2006
+205,Yellow,Manual,I4 Diesel,2014
+206,Green,Automatic,V8,2019
+207,Blue,Automatic,V8,2017
+208,Blue,Automatic,V8,2012
+209,Black,Automatic,V8,2005
+210,Black,Manual,V6,2016
+211,Red,Automatic,I4 Diesel,2015
+212,Green,Manual,V8,2012
+213,Brown,Manual,V6,2013
+214,Blue,Manual,I4,2006
+215,Yellow,Automatic,V6,2007
+216,Black,Automatic,I4 Diesel,2008
+217,Black,Automatic,I4,2014
+218,Brown,Automatic,V6,2004
+219,Yellow,Automatic,I4,2003
+220,Red,Manual,V8,2019
+221,Green,Manual,I4 Diesel,2015
+222,Yellow,Manual,I4,2009
+223,Yellow,Manual,V6,2015
+224,Green,Manual,I4,2005
+225,Brown,Manual,I4 Diesel,2004
+226,White,Automatic,I4,2007
+227,Black,Automatic,I4 Diesel,2007
+228,Green,Manual,V8,2011
+229,Brown,Manual,I4 Diesel,2011
+230,Yellow,Manual,I4,2002
+231,Blue,Manual,V6,2004
+232,Blue,Manual,I4 Diesel,2003
+233,Brown,Automatic,V6,2008
+234,Blue,Automatic,V6,2009
+235,White,Automatic,V6,2009
+236,Green,Manual,I4,2019
+237,Green,Manual,I4 Diesel,2019
+238,Red,Automatic,V6,2013
+239,Black,Automatic,I4 Diesel,2019
+240,Gray,Automatic,I4,2018
+241,White,Automatic,V6,2013
+242,Yellow,Automatic,I4 Diesel,2014
+243,Red,Manual,V6,2000
+244,Black,Automatic,I4,2019
+245,Yellow,Automatic,I4 Diesel,2001
+246,White,Manual,V8,2017
+247,Brown,Manual,I4 Diesel,2005
+248,Yellow,Manual,V8,2002
+249,Blue,Manual,I4 Diesel,2002
+250,Black,Automatic,I4,2007
+251,Black,Manual,I4 Diesel,2004
+252,Yellow,Manual,I4,2015
+253,Green,Manual,V8,2008
+254,Brown,Manual,V6,2005
+255,Red,Manual,V8,2009
+256,Brown,Manual,I4,2004
+257,Brown,Manual,V8,2018
+258,Brown,Automatic,V8,2017
+259,Yellow,Manual,V8,2017
+260,White,Automatic,V6,2017
+261,Green,Manual,I4 Diesel,2016
+262,White,Automatic,V8,2019
+263,Green,Automatic,I4 Diesel,2002
+264,Brown,Manual,I4,2012
+265,Red,Automatic,V6,2017
+266,Green,Automatic,V6,2014
+267,Green,Manual,I4,2007
+268,Green,Automatic,I4 Diesel,2003
+269,White,Manual,V8,2011
+270,Yellow,Manual,V6,2012
+271,Brown,Automatic,I4 Diesel,2014
+272,Gray,Manual,I4,2011
+273,Gray,Manual,V8,2018
+274,Blue,Automatic,V6,2012
+275,Brown,Manual,V8,2017
+276,White,Manual,V6,2019
+277,White,Manual,I4 Diesel,2006
+278,White,Manual,I4 Diesel,2014
+279,Yellow,Manual,V8,2004
+280,Black,Manual,I4,2003
+281,Gray,Manual,V6,2015
+282,Black,Manual,V8,2010
+283,Brown,Manual,I4 Diesel,2003
+284,Green,Manual,I4 Diesel,2003
+285,Gray,Manual,I4,2003
+286,Green,Manual,V6,2007
+287,Green,Automatic,V8,2013
+288,Gray,Manual,V8,2012
+289,Yellow,Manual,V8,2004
+290,Green,Automatic,I4 Diesel,2009
+291,Brown,Automatic,V8,2016
+292,Brown,Automatic,I4 Diesel,2019
+293,Red,Manual,V8,2017
+294,White,Automatic,V6,2008
+295,Yellow,Manual,V8,2004
+296,Gray,Automatic,V6,2001
+297,Yellow,Manual,V8,2000
+298,Yellow,Manual,I4 Diesel,2018
+299,Black,Manual,V6,2001
+300,Red,Manual,I4 Diesel,2003
+301,Blue,Automatic,I4 Diesel,2009
+302,Blue,Automatic,I4,2011
+303,Blue,Manual,I4,2012
+304,Red,Manual,V8,2015
+305,Gray,Automatic,I4,2019
+306,Red,Manual,I4 Diesel,2009
+307,Brown,Manual,V8,2001
+308,Brown,Automatic,I4,2003
+309,Green,Automatic,V6,2015
+310,Green,Manual,I4,2005
+311,Brown,Automatic,V8,2013
+312,Yellow,Manual,I4,2018
+313,Black,Automatic,I4 Diesel,2019
+314,Yellow,Manual,I4 Diesel,2004
+315,Blue,Manual,I4 Diesel,2015

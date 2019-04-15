@@ -192,8 +192,12 @@ public class UserInterface {
             System.out.println("-----------------------------------------------------");
 
             while (result.next()) {
-                for (int i = 0; i < amnt; i++)
-                    System.out.print(result.getObject(i + 1).toString() + " ");
+                for (int i = 0; i < amnt; i++) {
+                    System.out.print(result.getObject(i + 1).toString());
+                    if(i != amnt-1){
+                        System.out.print(",");
+                    }
+                }
 
                 System.out.println();
             }
