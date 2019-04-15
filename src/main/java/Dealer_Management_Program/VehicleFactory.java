@@ -114,6 +114,12 @@ public class VehicleFactory {
         return count;
     }
 
+    /**
+     * genBrand
+     * generates a random one of the vehicle brands in the database
+     * @param cc the command constructor to use
+     * @return a brand
+     */
     public static String genBrand(CommandConstructor cc){
         String brand;
         try {
@@ -131,6 +137,13 @@ public class VehicleFactory {
         return brand;
     }
 
+    /**
+     * genModel
+     * given a brand, it will return a random model
+     * @param cc the command constructor to use
+     * @param brand the brand to use
+     * @return the random model generated
+     */
     public static String genModel(CommandConstructor cc, String brand){
         String model;
         try {
@@ -146,6 +159,13 @@ public class VehicleFactory {
         return model;
     }
 
+    /**
+     * genBodyStyle
+     * given a model, will generate a valid bodystyle based on the data in the database
+     * @param cc the command constructor to use
+     * @param model the model to base style on
+     * @return the bodystyle as a string
+     */
     public static String genBodyStyle(CommandConstructor cc, String model){
         String body;
         try {
@@ -161,10 +181,25 @@ public class VehicleFactory {
         return body;
     }
 
+    /**
+     * checkValid
+     * makes sure none of the database generated data is empty
+     * @param brand
+     * @param model
+     * @param bodyStyle
+     * @param did
+     * @return true if none empty
+     */
     public static boolean checkValid(String brand, String model, String bodyStyle, int did){
         return (brand.length() > 0 && model.length() > 0 && bodyStyle.length() > 0 && did >= 0);
     }
 
+    /**
+     * genDealer
+     * gets the id of a random dealership
+     * @param cc the command constructor to use
+     * @return the ID of a dealership
+     */
     public static int genDealer(CommandConstructor cc){
         int did;
         try {
